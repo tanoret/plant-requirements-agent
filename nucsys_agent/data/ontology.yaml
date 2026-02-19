@@ -1,0 +1,48 @@
+components:
+  - canonical_type: reactor_pressure_vessel
+    alchemy_preset_element_type: NUCLEAR_REACTOR_PRESSURE_VESSEL
+    required_ports: [primary_out, primary_in]
+    required_properties: [thermal_power_MWth, primary_pressure_MPa, hot_leg_C, cold_leg_C, coolant]
+    description: "Primary heat source / reactor vessel boundary."
+
+  - canonical_type: steam_generator
+    alchemy_preset_element_type: NUCLEAR_STEAM_GENERATOR
+    required_ports: [primary_in, primary_out, secondary_in, secondary_out]
+    required_properties: [duty_MW, UA_MW_per_K, area_m2]
+    description: "Primary-to-secondary heat exchanger."
+
+  - canonical_type: pump_primary
+    alchemy_preset_element_type: REACTOR_COOLANT_PUMP
+    required_ports: [in, out]
+    required_properties: [m_dot_kg_s, delta_p_MPa, efficiency, shaft_power_MW]
+    description: "Primary coolant circulation pump."
+
+  - canonical_type: pump_feedwater
+    alchemy_preset_element_type: REACTOR_COOLANT_PUMP
+    required_ports: [in, out]
+    required_properties: [m_dot_kg_s, delta_p_MPa, efficiency, shaft_power_MW]
+    description: "Feedwater pump (demo mapping uses same preset type)."
+
+  - canonical_type: valve_control
+    alchemy_preset_element_type: MOTORIZED_CONTROL_VALVE
+    required_ports: [in, out]
+    required_properties: []
+    description: "Motorized control valve."
+
+  - canonical_type: turbine_generator
+    alchemy_preset_element_type: NUCLEAR_TURBINE_GENERATOR
+    required_ports: [in, out]
+    required_properties: [gross_power_MWe, isentropic_efficiency]
+    description: "Turbine-generator set."
+
+  - canonical_type: boundary_source
+    alchemy_preset_element_type: MOTORIZED_CONTROL_VALVE
+    required_ports: [out]
+    required_properties: []
+    description: "System boundary source (demo-friendly mapping)."
+
+  - canonical_type: boundary_sink
+    alchemy_preset_element_type: REACTOR_COOLANT_PUMP
+    required_ports: [in]
+    required_properties: []
+    description: "System boundary sink (demo-friendly mapping)."

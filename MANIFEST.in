@@ -1,0 +1,4 @@
+recursive-include nucsys_agent/data *.yaml
+recursive-include nucsys_agent/schemas *.json
+include README.md
+include pyproject.toml

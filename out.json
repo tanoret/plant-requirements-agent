@@ -1,0 +1,291 @@
+{
+  "Building": {
+    "height": 0,
+    "length": 0,
+    "parts": [
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [],
+        "edgesOutgoing": [
+          "4"
+        ],
+        "height": 0,
+        "id": "3",
+        "length": 0,
+        "name": "Secondary Source",
+        "predefined_type": "",
+        "preset_element_type": "MOTORIZED_CONTROL_VALVE",
+        "properties": {
+          "canonical_type": "boundary_source",
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          }
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "3"
+        ],
+        "edgesOutgoing": [
+          "5"
+        ],
+        "height": 0,
+        "id": "4",
+        "length": 0,
+        "name": "FWP",
+        "predefined_type": "",
+        "preset_element_type": "REACTOR_COOLANT_PUMP",
+        "properties": {
+          "canonical_type": "pump_feedwater",
+          "delta_p_MPa": 6.49,
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          },
+          "efficiency": 0.83,
+          "m_dot_kg_s": 1028.076671969517,
+          "shaft_power_MW": 8.12129924681063
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "4"
+        ],
+        "edgesOutgoing": [
+          "11"
+        ],
+        "height": 0,
+        "id": "5",
+        "length": 0,
+        "name": "FWCV",
+        "predefined_type": "",
+        "preset_element_type": "MOTORIZED_CONTROL_VALVE",
+        "properties": {
+          "canonical_type": "valve_control",
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          }
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "11"
+        ],
+        "edgesOutgoing": [
+          "8"
+        ],
+        "height": 0,
+        "id": "7",
+        "length": 0,
+        "name": "TAV",
+        "predefined_type": "",
+        "preset_element_type": "MOTORIZED_CONTROL_VALVE",
+        "properties": {
+          "canonical_type": "valve_control",
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          }
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "7"
+        ],
+        "edgesOutgoing": [
+          "9"
+        ],
+        "height": 0,
+        "id": "8",
+        "length": 0,
+        "name": "Turbine",
+        "predefined_type": "",
+        "preset_element_type": "NUCLEAR_TURBINE_GENERATOR",
+        "properties": {
+          "canonical_type": "turbine_generator",
+          "condenser_pressure_MPa": 0.01,
+          "cycle_efficiency": 0.7880239161086431,
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          },
+          "gross_power_MWe": 244.52847407940354,
+          "isentropic_efficiency": 0.87,
+          "net_power_MWe": 236.40717483259291
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "8"
+        ],
+        "edgesOutgoing": [],
+        "height": 0,
+        "id": "9",
+        "length": 0,
+        "name": "Secondary Sink",
+        "predefined_type": "",
+        "preset_element_type": "REACTOR_COOLANT_PUMP",
+        "properties": {
+          "canonical_type": "boundary_sink",
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          }
+        },
+        "width": 0
+      }
+    ],
+    "width": 0
+  },
+  "Building 2": {
+    "height": 0,
+    "length": 0,
+    "parts": [
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [],
+        "edgesOutgoing": [
+          "11"
+        ],
+        "height": 0,
+        "id": "10",
+        "length": 0,
+        "name": "Primary Source",
+        "predefined_type": "",
+        "preset_element_type": "NUCLEAR_REACTOR_PRESSURE_VESSEL",
+        "properties": {
+          "canonical_type": "reactor_pressure_vessel",
+          "chosen_primary_deltaT_K": 20.0,
+          "cold_leg_C": 300.0,
+          "coolant": "water",
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          },
+          "hot_leg_C": 320.0,
+          "primary_pressure_MPa": 15.5,
+          "thermal_power_MWth": 300
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "10",
+          "5"
+        ],
+        "edgesOutgoing": [
+          "12",
+          "7"
+        ],
+        "height": 0,
+        "id": "11",
+        "length": 0,
+        "name": "SG",
+        "predefined_type": "",
+        "preset_element_type": "NUCLEAR_STEAM_GENERATOR",
+        "properties": {
+          "UA_MW_per_K": 5.19860385419959,
+          "area_m2": 1732.8679513998632,
+          "canonical_type": "steam_generator",
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          },
+          "duty_MW": 300,
+          "primary_hot_in_C": 320.0,
+          "primary_hot_out_C": 300.0,
+          "secondary_cold_in_C": 220.0,
+          "secondary_hot_out_C": 280.0,
+          "secondary_m_dot_kg_s": 1028.076671969517,
+          "secondary_pressure_MPa": 6.5
+        },
+        "width": 0
+      },
+      {
+        "capacity": 0,
+        "class": "",
+        "description": "",
+        "edgesIncoming": [
+          "11"
+        ],
+        "edgesOutgoing": [],
+        "height": 0,
+        "id": "12",
+        "length": 0,
+        "name": "Primary Sink",
+        "predefined_type": "",
+        "preset_element_type": "REACTOR_COOLANT_PUMP",
+        "properties": {
+          "canonical_type": "pump_primary",
+          "delta_p_MPa": 1.2547406199904492,
+          "design_summary": {
+            "Q_MWth": 300,
+            "condenser_pressure_MPa": 0.01,
+            "primary_deltaT_K": 20.0,
+            "primary_pressure_MPa": 15.5,
+            "secondary_pressure_MPa": 6.5
+          },
+          "efficiency": 0.83,
+          "m_dot_kg_s": 2611.5540950872874,
+          "rho_kg_m3": 704.7594196887169,
+          "shaft_power_MW": 5.601882590128996
+        },
+        "width": 0
+      }
+    ],
+    "width": 0
+  }
+}

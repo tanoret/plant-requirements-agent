@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Alchemy Export DB",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/building"
+  },
+  "$defs": {
+    "building": {
+      "type": "object",
+      "required": ["length", "width", "height", "parts"],
+      "properties": {
+        "length": {"type": "number"},
+        "width": {"type": "number"},
+        "height": {"type": "number"},
+        "parts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/part"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "part": {
+      "type": "object",
+      "required": [
+        "id", "name", "description",
+        "length", "width", "height",
+        "capacity", "class", "predefined_type",
+        "preset_element_type", "properties",
+        "edgesIncoming", "edgesOutgoing"
+      ],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "length": {"type": "number"},
+        "width": {"type": "number"},
+        "height": {"type": "number"},
+        "capacity": {"type": "number"},
+        "class": {"type": "string"},
+        "predefined_type": {"type": "string"},
+        "preset_element_type": {"type": "string"},
+        "properties": {"type": "object"},
+        "edgesIncoming": {"type": "array", "items": {"type": "string"}},
+        "edgesOutgoing": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

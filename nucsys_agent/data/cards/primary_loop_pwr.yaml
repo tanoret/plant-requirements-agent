@@ -1,0 +1,53 @@
+id: primary_loop_pwr_v1
+title: PWR-like primary loop with steam generator
+tags: [primary_loop, water, steam_generator]
+purpose: >
+  Remove reactor thermal power via a closed primary loop and transfer heat
+  to a secondary loop using a steam generator. Provide forced circulation and
+  boundary elements for integration with BOP.
+required_inputs: [thermal_power_MWth]
+topology_template:
+  buildings:
+    - name: Secondary Loop
+      nodes:
+        - name: Secondary Source
+          canonical_type: boundary_source
+        - name: FWP
+          canonical_type: pump_feedwater
+        - name: FWCV
+          canonical_type: valve_control
+        - name: SG
+          canonical_type: steam_generator
+        - name: TAV
+          canonical_type: valve_control
+        - name: Turbine
+          canonical_type: turbine_generator
+        - name: Secondary Sink
+          canonical_type: boundary_sink
+      edges:
+        - [Secondary Source, FWP]
+        - [FWP, FWCV]
+        - [FWCV, SG]
+        - [SG, TAV]
+        - [TAV, Turbine]
+        - [Turbine, Secondary Sink]
+    - name: Primary Loop
+      nodes:
+        - name: Primary Source
+          canonical_type: reactor_pressure_vessel
+        - name: SG
+          canonical_type: steam_generator
+        - name: Primary Sink
+          canonical_type: pump_primary
+      edges:
+        - [Primary Source, SG]
+        - [SG, Primary Sink]
+sizing_methods:
+  - primary_mass_flow_from_Q_and_deltaT
+  - pump_power_from_flow_and_dp
+  - steam_generator_UA_from_LMTD
+  - rankine_simple_iapws
+constraints:
+  - Maintain minimum pinch temperature across steam generator
+serialization_hints:
+  interface_node: SG

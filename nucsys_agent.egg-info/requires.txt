@@ -1,0 +1,18 @@
+pydantic>=2.5
+pydantic-settings>=2.2
+httpx>=0.25
+tenacity>=8.0
+pyyaml>=6.0
+networkx>=3.0
+numpy>=1.24
+scipy>=1.10
+orjson>=3.9
+fastapi>=0.110
+uvicorn>=0.27
+
+[:platform_system != "Windows"]
+iapws>=1.5
+
+[dev]
+pytest>=8.0
+ruff>=0.3

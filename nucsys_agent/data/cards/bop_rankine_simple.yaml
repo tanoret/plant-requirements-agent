@@ -1,0 +1,12 @@
+id: bop_rankine_simple_v1
+title: Simple Rankine BOP (turbine + feedwater train boundary)
+tags: [bop_loop, rankine, water]
+purpose: >
+  Convert secondary steam heat to electrical power with a turbine-generator.
+  This card is simplified (boundary sink/source represent condenser & makeup).
+required_inputs: [thermal_power_MWth]
+topology_template: null
+sizing_methods:
+  - rankine_simple_iapws
+constraints: []
+serialization_hints: {}
