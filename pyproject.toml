@@ -28,6 +28,12 @@ dev = [
   "pytest>=8.0",
   "ruff>=0.3",
 ]
+diagram = [
+  "matplotlib>=3.7",
+]
+all = [
+  "matplotlib>=3.7",
+]
 
 [project.scripts]
 nucsys-agent = "nucsys_agent.cli:main"
@@ -37,7 +43,13 @@ packages = {find = {where = ["."], include = ["nucsys_agent*"]}}
 include-package-data = true
 
 [tool.setuptools.package-data]
-nucsys_agent = ["data/*.yaml", "data/cards/*.yaml", "schemas/*.json"]
+nucsys_agent = [
+  "data/*.yaml",
+  "data/cards/*.yaml",
+  "data/component_requirements/*.json",
+  "data/component_schema/*.json",
+  "schemas/*.json",
+]
 
 [tool.ruff]
 line-length = 100

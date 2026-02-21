@@ -7,7 +7,7 @@ import logging
 from .config import AgentConfig
 from .ontology import load_ontology
 from .rag.store import CardStore
-from .llm.openai_client import OpenAIClient
+from .llm import make_llm_client
 from .spec_parser import parse_design_spec
 from .models import Node, Building, DesignSpec
 from .optimizer import sweep_primary_deltaT
@@ -129,7 +129,14 @@ def _apply_sizing(spec: DesignSpec, cfg: AgentConfig, buildings: dict[str, Build
             pressure_MPa=primary_pressure,
             hot_leg_C=Th_hot,
         )
-        pump = size_primary_pump(mres.m_dot_kg_s, rho_kg_m3=mres.rho_kg_m3, efficiency=cfg.default_pump_efficiency)
+        props = get_liquid_props(coolant, primary_pressure, Th_hot - 0.5 * dT)
+        pump = size_primary_pump(
+            mres.m_dot_kg_s,
+            rho_kg_m3=mres.rho_kg_m3,
+            efficiency=cfg.default_pump_efficiency,
+            mu_Pa_s=props.mu_Pa_s,
+            coolant=coolant,
+        )
         L = lmtd(Th_hot, Th_hot - dT, sec_in, sec_out)
         if not (L > 0):
             raise SizingError("Invalid LMTD for steam generator; check temperature assumptions.")
@@ -155,14 +162,21 @@ def _apply_sizing(spec: DesignSpec, cfg: AgentConfig, buildings: dict[str, Build
             w_pump=w_pump,
             w_UA=w_UA,
         )
-        # recompute rho with chosen deltaT
+        # recompute rho and mu with chosen deltaT
         mres = primary_mass_flow_from_Q_and_deltaT(
             Q, optres.primary_deltaT_K,
             coolant=coolant,
             pressure_MPa=primary_pressure,
             hot_leg_C=Th_hot,
         )
-        pump = size_primary_pump(mres.m_dot_kg_s, rho_kg_m3=mres.rho_kg_m3, efficiency=cfg.default_pump_efficiency)
+        props = get_liquid_props(coolant, primary_pressure, Th_hot - 0.5 * optres.primary_deltaT_K)
+        pump = size_primary_pump(
+            mres.m_dot_kg_s,
+            rho_kg_m3=mres.rho_kg_m3,
+            efficiency=cfg.default_pump_efficiency,
+            mu_Pa_s=props.mu_Pa_s,
+            coolant=coolant,
+        )
         L = lmtd(Th_hot, Th_hot - optres.primary_deltaT_K, sec_in, sec_out)
         if not (L > 0):
             raise SizingError("Invalid LMTD for steam generator; check temperature assumptions.")
@@ -208,7 +222,7 @@ def _apply_sizing(spec: DesignSpec, cfg: AgentConfig, buildings: dict[str, Build
         })
 
     if "SG" in by_name:
-        area = area_from_UA(float(opt["UA_W_per_K"]), U_W_per_m2K=3000.0)
+        area = area_from_UA(float(opt["UA_W_per_K"]), coolant=coolant)
         by_name["SG"].properties.update({
             "duty_MW": Q,
             "UA_MW_per_K": float(opt["UA_W_per_K"]) / 1e6,
@@ -301,7 +315,7 @@ def run_agent(query: str, cfg: AgentConfig | None = None) -> AgentResult:
     ontology = load_ontology(cfg.ontology_path)
     store = CardStore.load_from_dir(cfg.cards_dir)
 
-    llm = OpenAIClient(cfg.openai) if cfg.openai.api_key else None
+    llm = make_llm_client(cfg)
     spec = parse_design_spec(query, llm=llm)
 
     tags = [spec.system, spec.coolant]

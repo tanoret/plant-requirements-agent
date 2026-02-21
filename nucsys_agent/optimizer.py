@@ -42,10 +42,13 @@ def sweep_primary_deltaT(
             pressure_MPa=primary_pressure_MPa,
             hot_leg_C=Th_hot_C,
         )
+        props = get_liquid_props(coolant, primary_pressure_MPa, Th_hot_C - 0.5 * float(dT))
         pump = size_primary_pump(
             mres.m_dot_kg_s,
             rho_kg_m3=mres.rho_kg_m3,
-            efficiency=0.83,
+            efficiency=0.85,
+            mu_Pa_s=props.mu_Pa_s,
+            coolant=coolant,
         )
 
         L = lmtd(Th_in, Th_out, secondary_in_C, secondary_out_C)

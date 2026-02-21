@@ -1,13 +1,13 @@
 from __future__ import annotations
 import re
+from typing import Any
 from .models import DesignSpec
-from .llm.openai_client import OpenAIClient, OpenAIError
 
 _POWER_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(MWth|MWt|MW_?th|MW)", re.IGNORECASE)
 _MPA_RE = re.compile(r"(\d+(?:\.\d+)?)\s*MPa", re.IGNORECASE)
 _TEMP_C_RE = re.compile(r"(\d+(?:\.\d+)?)\s*°?C", re.IGNORECASE)
 
-def parse_design_spec(query: str, *, llm: OpenAIClient | None = None) -> DesignSpec:
+def parse_design_spec(query: str, *, llm: Any | None = None) -> DesignSpec:
     spec = DesignSpec(request_text=query)
     ql = query.lower()
 
@@ -67,7 +67,7 @@ def parse_design_spec(query: str, *, llm: OpenAIClient | None = None) -> DesignS
             for k in out:
                 if hasattr(spec, k) and out[k] is not None:
                     setattr(spec, k, out[k])
-        except (OpenAIError, Exception):
+        except Exception:
             pass
 
     return spec

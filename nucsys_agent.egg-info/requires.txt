@@ -13,6 +13,12 @@ uvicorn>=0.27
 [:platform_system != "Windows"]
 iapws>=1.5
 
+[all]
+matplotlib>=3.7
+
 [dev]
 pytest>=8.0
 ruff>=0.3
+
+[diagram]
+matplotlib>=3.7

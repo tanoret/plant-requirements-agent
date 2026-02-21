@@ -1,19 +1,21 @@
 # nucsys-agent
 
-Semi-production-ready starter for a **pattern-card-driven** (RAG) nuclear system designer that outputs
-**Alchemy-style JSON graphs** (buildings + parts + edgesIncoming/edgesOutgoing) and sizes key components
-with deterministic thermodynamics/hydraulics.
+A **pattern-card-driven nuclear system design agent** that takes natural language queries,
+sizes key components with deterministic thermodynamics and hydraulics, and outputs
+structured JSON graphs ready for downstream tools.
 
-## What's "production-ready" in this repo
+Four integrated capabilities — available through a **CLI interactive session** or a **Streamlit web application**:
 
-- Package resources (ontology + cards) included in builds (`MANIFEST.in`, package-data)
-- Structured logging (`LOG_LEVEL` or `--log-level`)
-- Strict pattern card validation (Pydantic)
-- Hard applicability checks (system tag must match)
-- Deterministic sizing (no LLM numeric sizing)
-- Simple Rankine closure using **IAPWS97** (fallback if not available)
-- Export JSON schema validation (`schemas/alchemy_export.schema.json`)
-- Minimal test suite (`pytest`)
+1. **Loop design** — size a primary coolant loop or balance-of-plant from a natural language spec, with a guided conversation to fill gaps and review the topology.
+2. **Component requirements** — generate a filtered, applicability-checked requirements instance for any sized component, pre-filled from design results.
+3. **Single-line diagram** — P&ID-style diagram following IEC-60617 / IEEE-315 standards, exportable as PDF, SVG, or PNG.
+4. **Model audit** — ask free-text questions about every correlation, equation, reference, and assumption used in the calculations.
+
+| Interface | Command |
+|---|---|
+| Interactive CLI | `nucsys-agent` |
+| Streamlit web app | `streamlit run streamlit_app/app.py` |
+| REST API | `uvicorn nucsys_agent.server:app --port 8000` |
 
 ---
 
@@ -21,29 +23,120 @@ with deterministic thermodynamics/hydraulics.
 
 ```bash
 python -m pip install -e .
-export OPENAI_API_KEY="..."  # optional — enables improved spec parsing
 ```
+
+For diagram generation (matplotlib):
+
+```bash
+pip install "nucsys-agent[diagram]"
+# or install everything:
+pip install "nucsys-agent[all]"
+```
+
+### LLM spec parsing (optional)
+
+The agent parses natural language design queries with regex by default — no API key
+required.  Providing an LLM API key enables richer spec extraction from free-form text.
+
+**Provider priority: Anthropic → OpenAI → regex-only.**  Set whichever key you have:
+
+| Provider | Environment variables | Default model |
+|---|---|---|
+| **Anthropic** | `ANTHROPIC_API_KEY` | `claude-haiku-4-5-20251001` |
+| **OpenAI** | `OPENAI_API_KEY` | `gpt-4.1-mini` |
+| *(none)* | — | regex-only parsing |
+
+```bash
+# Use Anthropic / Claude
+export ANTHROPIC_API_KEY="sk-ant-..."
+export ANTHROPIC_MODEL="claude-sonnet-4-6"   # optional override
+
+# Use OpenAI
+export OPENAI_API_KEY="sk-..."
+export OPENAI_MODEL="gpt-4o-mini"            # optional override
+
+# Use any OpenAI-compatible endpoint (local Ollama, Azure, etc.)
+export OPENAI_API_KEY="..."
+export OPENAI_BASE_URL="http://localhost:11434/v1"
+export OPENAI_MODEL="llama3"
+```
+
+If both keys are set, Anthropic is used.  All sizing and optimization always runs
+deterministically — the LLM is only used to extract structured fields from the query.
 
 ---
 
-## One-shot CLI
+## Interactive session
 
-Provide all parameters in a single query and get the output JSON immediately:
+Run without arguments to open the main menu:
 
-```bash
-nucsys-agent "design the primary coolant system for a 300 MWth nuclear reactor, minimize pumping power" --out out.json
 ```
+nucsys-agent
+```
+
+```
+══════════════════════════════════════════════════════════════
+  nucsys-agent  ·  Nuclear System Design & Requirements
+══════════════════════════════════════════════════════════════
+  No design loaded  —  start by designing or loading a loop
+──────────────────────────────────────────────────────────────
+
+  [D]  Design a new loop
+  [L]  Load an existing design file  (.json)
+  [H]  Help  (quick reference)
+  [E]  Exit
+
+  >
+```
+
+Once a design is loaded the menu expands automatically:
+
+```
+══════════════════════════════════════════════════════════════
+  nucsys-agent  ·  Nuclear System Design & Requirements
+══════════════════════════════════════════════════════════════
+  Active design : 300 MWth Pwr Primary Loop (water)  ·  9 nodes  [2 component reqs]
+──────────────────────────────────────────────────────────────
+
+  [R]  Redesign loop  (start fresh, keeps session open)
+  [D]  Design a new loop
+  [L]  Load an existing design file  (.json)
+  [Q]  Generate component requirements
+  [V]  View / export single-line diagram
+  [A]  Audit engineering models  (explain correlations & references)
+  [H]  Help  (quick reference)
+  [E]  Exit
+
+  >
+```
+
+### Navigation at any prompt
+
+| Input | Effect |
+|---|---|
+| `back` / `menu` | Return to the main menu (no data lost) |
+| `exit` / `quit` | Exit the program |
+| `help` / `?` | Print a quick reference, then return to the current prompt |
+
+The session is **stateful** — the active design, requirements summaries, and diagram data persist across all menu actions until you exit.
+
+### Scripting bypasses
+
+These flags skip the menu entirely, useful for automation:
+
+| Command | Description |
+|---|---|
+| `nucsys-agent "300 MWth primary loop"` | One-shot design, then opens menu |
+| `nucsys-agent "300 MWth primary loop" -i` | Conversational design, then opens menu |
+| `nucsys-agent -f design.json` | Load design → requirements → diagram, no menu |
 
 ---
 
-## Interactive CLI
+## 1. Design a Loop
 
-Use `--interactive` (or `-i`) to walk through the design step by step.
-The agent guides you through four phases:
+From the menu choose **[D] Design a new loop** (or **[R] Redesign** to start over while keeping the session open).
 
-```bash
-nucsys-agent "design a nuclear system" --interactive --out out.json
-```
+The agent runs a four-phase guided conversation:
 
 ### Phase 1 — Spec gaps
 
@@ -62,12 +155,10 @@ Agent: What coolant?  Options: water, sodium, co2, helium
 You: water
 ```
 
-If your initial query already contains all three required fields, this phase is skipped.
-
 ### Phase 2 — Parameter review
 
-The agent displays every operating parameter with its current value and a `(default)` or `(set)` tag.
-Type `ok` to accept, or override any value in plain English:
+Every operating parameter is shown with a `(default)` or `(set)` tag.
+Type `ok` to accept or override any value in plain English:
 
 ```
 Agent: Required spec confirmed.
@@ -83,20 +174,18 @@ Agent: Required spec confirmed.
 
   Type 'ok' to use these values, or override any parameter, e.g.:
     'primary pressure 16 MPa'  /  'hot leg 325°C'  /  'steam pressure 7 MPa'
-    'objective min_pump_power'  /  'feedwater 230°C'  /  'condenser 0.008 MPa'
 
 You: primary pressure 16 MPa, hot leg 325°C
-# → shows updated table, stays in this phase
+# → updated table shown, stays in phase
 
 You: ok
 ```
 
-You can send multiple overrides in one message and the summary re-displays after each change.
+Multiple overrides can be sent in one message; the table re-displays after each change.
 
 ### Phase 3 — Component review
 
-The agent shows the proposed topology and lets you customise it before the pipeline runs.
-You can send multiple edits before confirming:
+The agent shows the proposed topology and lets you customise it before the pipeline runs:
 
 ```
 Agent: Parameters saved. Matched pattern: PWR Primary Loop
@@ -117,11 +206,7 @@ Agent: Parameters saved. Matched pattern: PWR Primary Loop
     - Override a property:  'set Turbine efficiency 0.90'
 
 You: remove TAV
-# → TAV marked [REMOVED], stays in this phase
-
 You: set Turbine efficiency 0.90
-# → override stored, stays in this phase
-
 You: ok
 # → pipeline runs, moves to Phase 4
 ```
@@ -137,51 +222,328 @@ Recognised property aliases for `set <ComponentName> <property> <value>`:
 
 ### Phase 4 — Design review & refinement
 
-The agent runs the sizing pipeline and shows key results.
-Type `done` to finalise, or keep refining — parameter and property overrides work here too,
-and the pipeline re-runs immediately after each change:
+The sizing pipeline runs and shows key results. Type `done` to finalise, or keep refining:
 
 ```
 Agent: Design results:
     Thermal power:      300 MWth
     Primary ΔT:         35.2 K
     Hot-leg / Cold-leg: 325 °C / 289 °C
-    Primary flow:       1423 kg/s
+    Primary flow:       1 423 kg/s
     Pump power:         1.74 MW
-    SG duty:            300 MW
-    SG UA:              0.47 MW/K
-    SG area:            157 m²
-    Turbine gross:      94.8 MWe
-    Net power:          93.1 MWe
-    Cycle efficiency:   31.0 %
+    SG duty:            300 MW  |  UA: 0.47 MW/K  |  area: 157 m²
+    Turbine gross:      94.8 MWe  |  net: 93.1 MWe  |  η_cycle: 31.0 %
     Validation:         0 error(s), 0 warning(s)
 
-  Type 'done' to save this design, or refine with:
-    'primary pressure 16 MPa'  /  'hot leg 330°C'  /  'objective min_pump_power'
-    'set Turbine efficiency 0.90'  /  'set SG area 500'
-
-You: set Turbine efficiency 0.85
-# → pipeline re-runs, shows updated results
+  Type 'done' to save, or refine with:
+    'primary pressure 16 MPa'  /  'hot leg 330°C'  /  'set Turbine efficiency 0.90'
 
 You: done
-# → writes out.json
+# → writes design.json, returns to main menu
+```
+
+After saving, the menu returns and **[Q]** and **[V]** become available immediately.
+
+---
+
+## 2. Component Requirements
+
+Generate a filtered, applicability-checked requirements instance for any sized component.
+The agent draws from a baseline of **1,500 requirements** across six component types,
+keeping only those applicable to the component's classification and operating profile.
+
+**Supported components:** pump, valve, condenser, steam_generator, pressurizer, turbine
+
+### From the menu (after design or load)
+
+Choose **[Q] Generate component requirements**. The agent lists all components that have a
+requirements baseline and lets you pick them interactively:
+
+```
+──────────────────────────────────────────────────────────────
+Available components:
+  1.  Primary Sink (pump)  flow=1 423 kg/s  P_shaft=210 kW  P_sys=15.5 MPa
+  2.  SG (steam generator)  Q=300 MW  P_pri=15.5 MPa  P_sec=6.5 MPa
+  3.  Turbine (turbine)  P=94 MW
+
+  Enter number or name to select, Enter to stop,
+  or 'back' to return to the main menu.
+
+  Select: 1
+  Output file [primary_sink_reqs.json]:
+```
+
+Numeric parameters (flow rate, head, pressures, temperatures) are **pre-filled from the
+design**. Only classification fields that cannot be inferred from sizing are asked:
+
+```
+Agent: I found sizing data for Primary Sink (pump) from the loop design.
+  Pre-filled numeric parameters — only a few classification questions remain.
+
+Agent: Pump tag / ID?  (e.g. RCS-PMP-001)
+You: RCS-PMP-001
+
+... (pump_type, function, driver_type, code_class, safety_classification,
+     seismic_category, environment_profile)
+
+Agent: Optional parameters for PUMP:
+  Design pressure         15.50 MPa  (from loop design)
+  Design temperature      325.0 °C   (from loop design)
+  Design flowrate         1 423.0 kg/s (from loop design)
+  Service life            (not set)
+
+You: service life 60 years
+You: ok
+# → writes primary_sink_reqs.json
+```
+
+After each component, the agent asks if you want to process another. Type `back` at any
+prompt to return to the main menu immediately (the design stays loaded).
+
+The requirements badges on the **single-line diagram** update automatically when you return
+to generate a diagram in the same session.
+
+### From a saved design file (`-f / --from-design`)
+
+A scripting-friendly bypass that skips the menu — useful when resuming a session from a
+previously saved design:
+
+```bash
+nucsys-agent --from-design design.json
+```
+
+The flow is identical to the in-session requirements loop above, followed by an offer to
+generate the single-line diagram.
+
+### Standalone requirements query
+
+If you only need requirements (no loop design), the agent auto-detects requirements-related
+queries and routes directly to the requirements workflow:
+
+```bash
+nucsys-agent "get requirements for a reactor coolant pump" --out pump_reqs.json
+```
+
+**Phase 1 — Component selection** (if not clear from the query):
+
+```
+Agent: Which component do you need requirements for?
+  Options: pump, valve, condenser, steam_generator, pressurizer, turbine
+You: pump
+```
+
+**Phase 2 — Required profile fields** (vary by component):
+
+```
+Agent: Pump tag / ID?  (e.g. RCS-PMP-001)
+You: RCS-PMP-001
+
+Agent: Pump type?
+  Options: centrifugal, vertical_turbine, positive_displacement, canned_motor, submersible
+You: centrifugal
+
+... (function, driver_type, code_class, safety_classification, seismic_category, environment_profile)
+```
+
+Aliases are accepted: `"class 1"` → `ASME_III_Class_1`, `"noncode"` → `NonCode`, `"yes"` → `True`.
+
+**Phase 3 — Optional parameter review:**
+
+```
+Agent: Optional parameters for PUMP:
+  Design pressure         (not set)
+  Design temperature      (not set)
+  Design flowrate         (not set)
+  ...
+
+You: design pressure 15.5
+You: ok
+# → filters requirements, writes pump_reqs.json, returns to menu
 ```
 
 ---
 
-## API server
+## 3. Single-Line Diagram
+
+From the menu choose **[V] View / export single-line diagram**.
+
+```
+──────────────────────────────────────────────────────────────
+Single-Line Diagram  (type 'back' to return to menu)
+──────────────────────────────────────────────────────────────
+  Requirements badges will be shown for: Primary Sink, SG
+
+  Style [normal / blueprint, default: normal]: blueprint
+# → opens matplotlib window
+
+  Export? (pdf / svg / png / N): pdf
+  Output file [diagram.pdf]: design_sld.pdf
+# → writes design_sld.pdf
+```
+
+If you generated requirements earlier in the same session, the diagram shows badges
+automatically — no extra steps needed.
+
+### What the diagram shows
+
+| Element | Description |
+|---|---|
+| **IEC-60617 symbols** | Pump (circle + impeller), SG (double circle + wavy), Turbine (triangle + blade lines), Valve (bow-tie), Reactor core (concentric circles + fission arrows), Condenser (rectangle + dividing line), Pressurizer (tall capsule + heater coils), Boundary (diamond) |
+| **Flow direction** | Arrows on all pipe lines |
+| **Return pipes** | Arc drawn below each loop, labelled |
+| **Cross-loop connections** | Dashed diagonal line for steam / feedwater interface |
+| **Building frames** | Dashed rounded rectangles labelled with loop name |
+| **Sizing parameters** | Key values (flow, power, efficiency, UA) printed under each symbol |
+| **REQ badge** | Colour-coded badge per component (see below) |
+| **Title block** | Standard engineering title block with standard references |
+| **Legend** | All symbol types and badge colour key |
+
+### Styles
+
+| Style | Description |
+|---|---|
+| `normal` | White background, dark navy lines — standard engineering drawing |
+| `blueprint` | Dark navy background, light blue lines — classic blueprint look |
+
+### Requirements badge colours
+
+| Badge | Meaning |
+|---|---|
+| **Teal — "REQ"** | Baseline available; requirements not yet generated this session |
+| **Green — "REQ ✓ 47"** | Generated; 47 applicable requirements, no TBD parameters |
+| **Orange — "REQ 47 + 3 TBD"** | Generated; 3 parameters still need values |
+
+### Programmatic use
+
+```python
+from nucsys_agent.visualization import SingleLineDiagram
+
+sld = SingleLineDiagram(alchemy_db, blueprint=True, title="300 MWth PWR")
+sld.show()
+sld.export("design.pdf", dpi=300)
+```
+
+---
+
+## 4. Model Audit
+
+From the menu choose **[A] Audit engineering models** to open a free-text Q&A session
+about every correlation, equation, assumption, and literature reference used in the sizing
+calculations.  No design needs to be loaded — the audit module is always available.
+
+```
+──────────────────────────────────────────────────────────────
+Audit Engineering Models
+──────────────────────────────────────────────────────────────
+Ask questions about the models, correlations, and references used.
+Examples:
+  'How is energy conservation done?'
+  'What fluid properties are implemented and from where?'
+  'How is the steam generator sized?'
+  'What are the model assumptions?'
+  'list' — show all available topics
+  'back' — return to the main menu
+
+  Question: what fluid properties are implemented and from where
+
+  FLUID THERMOPHYSICAL PROPERTIES
+  ────────────────────────────────
+  Four coolants are supported, each using a different correlation source.
+
+  WATER  (compressed liquid, ~250–350 °C, 10–18 MPa)
+    Primary path : IAPWS-IF97 via the `iapws` Python package ...
+  SODIUM  (liquid, 98–850 °C)
+    Source : Sobolev (2011), SCK·CEN-BLG-1069 ...
+  CO₂  (supercritical / compressed gas)
+    Density : Peng-Robinson EOS (Peng & Robinson, 1976) ...
+  HELIUM  (ideal gas, T = 200–900 °C)
+    Density : Ideal-gas law  ρ = P / (R_He · T_K) ...
+
+  REFERENCES
+  ──────────
+  · IAPWS, Release on the IAPWS Industrial Formulation 1997 ...
+  · Sobolev, V. (2011). Database of thermophysical properties ...
+  ...
+```
+
+Type `back` at any prompt to return to the main menu.
+
+### Topics covered
+
+| Topic | Example questions |
+|---|---|
+| **Architecture overview** | "how does the pipeline work", "what is implemented" |
+| **Energy conservation** | "how is energy conservation done", "Q = m dot cp deltaT" |
+| **Fluid properties** | "what fluid properties are implemented and from where", "sodium correlations", "Peng-Robinson" |
+| **Steam generator sizing** | "how is the SG sized", "LMTD", "U value", "fouling resistance" |
+| **Rankine cycle** | "how is turbine power calculated", "cycle efficiency", "steam quality" |
+| **Pump sizing & hydraulics** | "how is pump sizing done", "Churchill friction factor", "Darcy-Weisbach" |
+| **Optimizer** | "how does the optimizer work", "objective function", "primary ΔT sweep" |
+| **Assumptions & limitations** | "what are the model assumptions", "how accurate are the models" |
+| **All references** | "what references are used", "bibliography" |
+
+Each topic response includes the governing equations, the specific literature references,
+and the source file path where the model is implemented.
+
+### Programmatic use
+
+```python
+from nucsys_agent.audit import AuditEngine
+
+engine = AuditEngine()
+print(engine.ask("how is energy conservation done?"))
+print(engine.ask("list"))              # catalogue of all topics
+print(engine.get_topic("hydraulics"))  # retrieve a topic by ID directly
+```
+
+### API
+
+#### `POST /audit`
+
+```json
+{ "question": "What fluid properties are implemented and from where?" }
+```
+
+Response:
+
+```json
+{
+  "answer": "FLUID THERMOPHYSICAL PROPERTIES\n────────────────────────────────\n...",
+  "matched_topics": ["fluid_properties"],
+  "available_topics": ["overview", "energy_conservation", "fluid_properties", "heat_exchanger",
+                       "rankine_cycle", "hydraulics", "optimizer", "assumptions", "references"]
+}
+```
+
+Set `topic_id` to retrieve a specific topic without text matching:
+
+```json
+{ "question": "", "topic_id": "hydraulics" }
+```
+
+Use `"question": "list"` to get a formatted catalogue of all available topics.
+
+---
+
+## API
+
+Start the server:
 
 ```bash
 uvicorn nucsys_agent.server:app --reload --port 8000
 ```
 
-### `POST /design` — one-shot
+### Loop design
+
+#### `POST /design` — one-shot
 
 ```json
 { "query": "300 MWth primary loop water" }
 ```
 
-### `POST /chat` — interactive (stateless)
+Response includes `spec`, `alchemy_db`, `validation_issues`, and `export_issues`.
+
+#### `POST /chat` — interactive (stateless)
 
 The endpoint is stateless: the client sends the full conversation history on every call.
 
@@ -196,6 +558,7 @@ The endpoint is stateless: the client sends the full conversation history on eve
 ```
 
 Response:
+
 ```json
 {
   "agent_reply": "...",
@@ -209,13 +572,263 @@ Response:
 }
 ```
 
-`spec`, `alchemy_db`, `validation_issues`, and `export_issues` are populated only on the final
-turn (`is_done: true`).
+`spec`, `alchemy_db`, `validation_issues`, and `export_issues` are populated only on the
+final turn (`is_done: true`).
+
+### Requirements
+
+#### `POST /requirements` — one-shot
+
+```json
+{
+  "component_type": "pump",
+  "profile": {
+    "pump_tag": "RCS-PMP-001",
+    "pump_type": "centrifugal",
+    "function": "reactor_coolant",
+    "driver_type": "electric_motor",
+    "code_class": "ASME_III_Class_1",
+    "safety_classification": "safety_related",
+    "seismic_category": "Seismic_Category_I",
+    "environment_profile": "harsh",
+    "design_pressure": 15.5
+  }
+}
+```
+
+#### `POST /requirements/chat` — interactive (stateless)
+
+```json
+{
+  "initial_query": "requirements for a reactor coolant pump",
+  "history": [
+    { "role": "agent", "content": "Pump tag / ID? ..." },
+    { "role": "user",  "content": "RCS-PMP-001" }
+  ]
+}
+```
+
+Response:
+
+```json
+{
+  "agent_reply": "...",
+  "phase": "component_selection | profile_required | profile_optional_review | done",
+  "is_done": false,
+  "requirements_instance": null,
+  "error": null
+}
+```
+
+#### `POST /requirements-from-design` — design-linked (stateless)
+
+Pre-seeds the requirements conversation with sizing results from a loop design.
+Typical integration sequence:
+
+1. Call `POST /design` → receive `alchemy_db`.
+2. Pick a node (`"Primary Sink"`, `"SG"`, `"Turbine"`, or `"FWP"`).
+3. Start the conversation by sending that node's `properties` dict with an empty `history`.
+4. Repeat with a growing `history` until `is_done` is `true`.
+
+```json
+{
+  "node_name": "Primary Sink",
+  "node_props": {
+    "m_dot_kg_s": 1423.0,
+    "delta_p_MPa": 0.12,
+    "rho_kg_m3": 715.0,
+    "shaft_power_MW": 0.21,
+    "design_summary": { "primary_pressure_MPa": 15.5 }
+  },
+  "all_node_props": {
+    "Primary Source": { "hot_leg_C": 325.0 }
+  },
+  "history": []
+}
+```
+
+`all_node_props` enables cross-node lookups (e.g. hot-leg temperature from `"Primary Source"`
+becomes the pump design temperature).
+
+Supported node → component mappings:
+
+| Node | Component |
+|---|---|
+| `Primary Sink` | pump (RCP) |
+| `FWP` | pump (feedwater) |
+| `SG` | steam_generator |
+| `Turbine` | turbine |
+
+The conversation starts at `profile_required` (classification questions only); numeric
+parameters derived from the node are pre-filled and annotated `(from loop design)`.
+
+### Audit
+
+See the dedicated **[POST /audit](#post-audit)** endpoint documented in the
+[Model Audit](#4-model-audit) section above.
 
 ---
 
-## Customize guardrails
+## Output formats
 
-- Ontology allowlist: `nucsys_agent/data/ontology.yaml`
-- Pattern cards: `nucsys_agent/data/cards/*.yaml`
-- Export schema: `nucsys_agent/schemas/alchemy_export.schema.json`
+### Loop design — Alchemy JSON
+
+The design file is a flat JSON object keyed by building name. Each building contains a
+`parts` array of component nodes:
+
+```json
+{
+  "Building": {
+    "parts": [
+      {
+        "id": "3",
+        "name": "Secondary Source",
+        "preset_element_type": "MOTORIZED_CONTROL_VALVE",
+        "properties": { "canonical_type": "boundary_source", "design_summary": { ... } },
+        "edgesIncoming": [],
+        "edgesOutgoing": ["4"]
+      }
+    ]
+  },
+  "Building 2": { "parts": [ ... ] }
+}
+```
+
+Pass this file to `[L] Load` in the menu, or to `--from-design`, to resume requirements
+or diagram generation in a later session.
+
+### Requirements instance JSON
+
+Each requirements output file contains:
+
+| Field | Description |
+|---|---|
+| `instance_id` | Unique UUID for this requirements instance |
+| `template_id` | Baseline library identifier |
+| `generated_utc` | Timestamp |
+| `<component>_profile` | The profile used (e.g. `pump_profile`) |
+| `applicable_requirements` | Applicable requirements with `status`, `parameter_values`, `tbd_parameters` |
+| `non_applicable_requirements` | Excluded requirements with `exclusion_reason` |
+| `validation` | Counts and TBD-parameter warnings |
+
+**Conservative null handling:** if an optional numeric parameter is not provided, any
+requirement that depends on it is **included** with the parameter listed in `tbd_parameters`
+rather than silently excluded.
+
+---
+
+## Streamlit web application
+
+A browser-based chatbot UI is included in [`streamlit_app/`](streamlit_app/).
+
+### Install and run
+
+```bash
+pip install streamlit
+streamlit run streamlit_app/app.py
+```
+
+The app opens at `http://localhost:8501`.
+
+### Interface
+
+The application is organised in three tabs that become active after the design is complete:
+
+| Tab | Content |
+|---|---|
+| **💬 Design Chat** | Conversational design interface — identical workflow to the CLI interactive mode |
+| **📐 Single-Line Diagram** | Live IEC-60617 P&ID with blueprint toggle and PDF/SVG/PNG download |
+| **📋 Component Requirements** | Per-component requirement cards with pre-filled design parameters |
+
+### Sidebar
+
+| Control | Description |
+|---|---|
+| **Provider** | OpenAI / Anthropic / None (regex-only) |
+| **API Key** | Password field — stored in browser session only, never written to disk |
+| **Model override** | Optional model ID override (e.g. `claude-sonnet-4-6`, `gpt-4o`) |
+| **Session status** | Active design summary and requirements completion count |
+| **New session** | Clears all state and starts fresh |
+
+### Design Chat tab
+
+```
+💬  Design Chat
+
+  ⚛️  Which system are you designing?
+       Options: primary_loop, bop_loop, intermediate_loop
+
+  You: primary_loop
+
+  ⚛️  What is the thermal power in MWth?
+  You: 300 MWth
+
+  ⚛️  What coolant?  Options: water, sodium, co2, helium
+  You: water
+
+  ⚛️  Parameters saved.  Matched pattern: PWR Primary Loop
+     Proposed components:
+       [Primary Loop]  Primary Source · SG · Primary Sink
+       [BOP]           TAV · Turbine · FWP · FWCV
+
+  You: ok
+
+  ⚛️  Design results:
+       Thermal power:   300 MWth  |  Primary ΔT: 35.2 K
+       Primary flow:    1 423 kg/s  |  Pump: 1.74 MW
+       SG:  300 MW  |  UA: 0.47 MW/K  |  area: 157 m²
+       Turbine: 94.8 MWe gross  |  η: 31.0 %
+
+  ✅  Design complete — switch to Diagram or Requirements tab.
+```
+
+### Component Requirements tab
+
+Each component with a requirements baseline appears as a collapsible card:
+
+```
+▸ Primary Sink   pump   — not generated yet
+▸ SG             steam generator   — not generated yet
+▸ Turbine        turbine   — not generated yet
+```
+
+Expanding a card shows:
+
+1. **Design parameters** — numeric values pre-filled from the sizing run (mass flow,
+   pressure rise, shaft power, thermal duty, etc.) shown as read-only metric tiles.
+2. **Classification form** — two-column form with dropdowns for code class, safety
+   classification, seismic category, environment profile, and component sub-type fields.
+3. **Generate Requirements** button — runs the applicability filter and displays results inline.
+4. **Results** — applicable requirement count, TBD-parameter count, sortable table of
+   applicable requirements, collapsed table of excluded requirements, and a JSON download button.
+
+Once generated, each card header updates to show a status badge:
+
+```
+✅ Primary Sink  pump  —  ✅ 47 reqs
+✅ SG  steam generator  —  ✅ 83 reqs · ⚠ 2 TBD
+```
+
+### Single-Line Diagram tab
+
+After requirements are generated, the diagram automatically shows colour-coded
+requirement badges on each component (green = complete, amber = TBD parameters remaining).
+
+```
+Controls (left column)      Diagram (right column)
+────────────────────────    ──────────────────────────────────────────
+□ Blueprint style           [full IEC-60617 P&ID with flow arrows,
+                             building frames, sizing annotations,
+Format:  [PDF ▼]            and requirement badges]
+[⬇️  Download]
+```
+
+---
+
+## Customize
+
+| File | Purpose |
+|---|---|
+| `nucsys_agent/data/ontology.yaml` | Component type allowlist |
+| `nucsys_agent/data/cards/*.yaml` | Pattern cards (topology + sizing templates) |
+| `nucsys_agent/schemas/alchemy_export.schema.json` | JSON schema for export validation |
