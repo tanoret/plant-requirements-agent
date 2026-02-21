@@ -5,6 +5,7 @@ pyproject.toml
 nucsys_agent/__init__.py
 nucsys_agent/cli.py
 nucsys_agent/config.py
+nucsys_agent/conversation.py
 nucsys_agent/exceptions.py
 nucsys_agent/export_validation.py
 nucsys_agent/logging_config.py
@@ -34,4 +35,6 @@ nucsys_agent/sizing/hydraulics.py
 nucsys_agent/sizing/properties.py
 nucsys_agent/sizing/rankine.py
 nucsys_agent/sizing/thermo.py
+tests/test_chat_endpoint.py
+tests/test_conversation.py
 tests/test_primary_loop.py

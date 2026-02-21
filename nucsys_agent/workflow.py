@@ -250,6 +250,40 @@ def _apply_sizing(spec: DesignSpec, cfg: AgentConfig, buildings: dict[str, Build
             "condenser_pressure_MPa": cond_P,
         })
 
+def run_agent_from_spec(
+    spec: DesignSpec,
+    topology_template: dict[str, Any],
+    topo_card: Any,
+    cfg: AgentConfig | None = None,
+) -> AgentResult:
+    """Run the design pipeline from a pre-built spec and (optionally pruned) topology.
+
+    Called by interactive mode after Phase 2; run_agent() is untouched.
+    """
+    cfg = cfg or AgentConfig()
+    ontology = load_ontology(cfg.ontology_path)
+
+    idgen = IdGen(start=3)
+    buildings = _instantiate_topology(topology_template, ontology, idgen)
+    interface = (topo_card.serialization_hints or {}).get("interface_node", "SG")
+    _merge_interface_node(buildings, interface_name=interface)
+
+    _apply_sizing(spec, cfg, buildings)
+
+    all_nodes = [n for b in buildings.values() for n in b.parts]
+    issues = validate_nodes(all_nodes, ontology)
+    alchemy_db = export_alchemy_db(buildings)
+    export_issues = validate_alchemy_export(alchemy_db)
+
+    return AgentResult(
+        spec=spec,
+        buildings=buildings,
+        validation_issues=issues,
+        export_issues=export_issues,
+        alchemy_db=alchemy_db,
+    )
+
+
 def run_agent(query: str, cfg: AgentConfig | None = None) -> AgentResult:
     cfg = cfg or AgentConfig()
     ontology = load_ontology(cfg.ontology_path)
