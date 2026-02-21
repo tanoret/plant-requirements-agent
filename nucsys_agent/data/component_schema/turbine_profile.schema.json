@@ -1,0 +1,830 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/turbine_profile.schema.json",
+  "title": "TurbineProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "turbine_tag",
+    "turbine_type",
+    "turbine_application",
+    "code_class",
+    "safety_classification",
+    "seismic_category",
+    "environment_profile"
+  ],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "description": "Optional unique ID for this turbine profile."
+    },
+    "turbine_tag": {
+      "type": "string"
+    },
+    "turbine_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "turbine_type": {
+      "type": "string",
+      "enum": [
+        "steam_turbine",
+        "gas_turbine",
+        "hydraulic_turbine"
+      ]
+    },
+    "turbine_application": {
+      "type": "string",
+      "enum": [
+        "main_generator",
+        "mechanical_drive",
+        "black_start",
+        "auxiliary"
+      ]
+    },
+    "reactor_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plant_unit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "code_class": {
+      "type": "string",
+      "enum": [
+        "ASME_III_Class_1",
+        "2",
+        "ASME_III_Class_2",
+        "3",
+        "ASME_III_Class_3",
+        "B31_1",
+        "NonCode",
+        "non_code"
+      ]
+    },
+    "safety_classification": {
+      "type": "string",
+      "enum": [
+        "safety_related",
+        "nonsafety",
+        "non_safety",
+        "important_to_safety"
+      ]
+    },
+    "seismic_category": {
+      "type": "string",
+      "enum": [
+        "Seismic_Category_I",
+        "NonSeismic",
+        "non_seismic"
+      ]
+    },
+    "qa_level": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "Q1",
+        "Q2",
+        "commercial"
+      ]
+    },
+    "design_life_years": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "yr"
+    },
+    "design_cycles": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "cycles"
+    },
+    "mission_profile": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "baseload",
+        "load_following",
+        "cycling",
+        "peaking"
+      ]
+    },
+    "rated_power_mw": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MW"
+    },
+    "max_continuous_rating_mw": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MW"
+    },
+    "rated_speed_rpm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "rpm"
+    },
+    "rated_frequency_hz": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Hz"
+    },
+    "steam_inlet_pressure_mpa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "steam_inlet_temperature_c": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "reheat_inlet_pressure_mpa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "reheat_inlet_temperature_c": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "exhaust_pressure_kpa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kPa"
+    },
+    "exhaust_configuration": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "extraction_points_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "extraction_control_required": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "steam_quality_inlet_min": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "fraction"
+    },
+    "moisture_content_exhaust_max": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "fraction"
+    },
+    "heat_rate_kj_kwh_target": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kJ/kWh"
+    },
+    "isentropic_efficiency_target": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "fraction"
+    },
+    "part_load_range_percent": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ramp_rate_mw_min": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MW/min"
+    },
+    "start_time_cold_hr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "hr"
+    },
+    "start_time_hot_hr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "hr"
+    },
+    "shutdown_cooldown_constraints": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "casing_arrangement": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "section_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "hp_section_present": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ip_section_present": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lp_section_present": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stages_count_total": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "last_stage_blade_length_in": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "in"
+    },
+    "blading_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rotor_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "blade_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "casing_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "design_pressure_casing_mpa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "design_temperature_casing_c": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "nozzle_load_allowables_defined": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "foundation_dynamic_analysis_required": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "critical_speed_margin_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "torsional_analysis_required": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "overspeed_trip_setpoint_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "overspeed_test_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "rotor_balance_grade": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vibration_limit_um_pkpk": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "um"
+    },
+    "vibration_trip_um_pkpk": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "um"
+    },
+    "axial_displacement_alarm_mm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "mm"
+    },
+    "axial_displacement_trip_mm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "mm"
+    },
+    "bearing_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "journal_bearing_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "thrust_bearing_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lube_oil_system_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lube_oil_pump_redundancy": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lube_oil_reservoir_volume_l": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "L"
+    },
+    "lube_oil_cleanliness_iso_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "lube_oil_supply_pressure_kpa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kPa"
+    },
+    "lube_oil_supply_temperature_c": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "lube_oil_cooler_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "seal_system_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gland_steam_system": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gland_seal_exhauster": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "turning_gear_provided": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "turning_gear_speed_rpm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "rpm"
+    },
+    "jacking_oil_system": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "steam_stop_valve_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "steam_control_valve_actuation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "valve_closure_time_s": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "s"
+    },
+    "intercept_valves_present": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reheat_stop_valves_present": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "water_induction_protection": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "drains_vents_provided": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "steam_chest_warmup_provisions": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "foreign_material_exclusion_program": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "control_system_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "trip_system_architecture": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "machinery_protection_standard": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "governor_mode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "speed_regulation_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "load_control_accuracy_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "remote_trip_provided": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "local_control_panel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "instrumentation_grade": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vibration_probes_per_bearing": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "keyphasor_provided": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bearing_temp_sensors": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "casing_expansion_monitoring": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "differential_expansion_monitoring": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eccentricity_monitoring": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "steam_condition_monitoring": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data_historian_integration": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "alarm_management_standard": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "seismic_qualification_required": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "environment_profile": {
+      "type": "string",
+      "enum": [
+        "mild",
+        "harsh",
+        "DBA_profile_defined"
+      ]
+    },
+    "radiation_environment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eq_documentation_required": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "availability_target_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "mtbf_hours_target": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "hr"
+    },
+    "condition_based_maintenance": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "inspection_interval_months": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "months"
+    },
+    "borescope_ports_provided": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "online_washing": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "generator_coupled": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "generator_standard": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coupling_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coupling_guarding": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gearbox_present": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "noise_limit_dba": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "dBA"
+    },
+    "oil_fire_protection": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "preservation_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "shipping_orientation_constraints": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spare_parts_list_required": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "digital_firmware_config_control": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional free-form metadata (system, location, notes, hazards, etc.)."
+    }
+  }
+}

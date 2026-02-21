@@ -22,7 +22,7 @@
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           }
@@ -51,7 +51,7 @@
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           },
@@ -82,7 +82,7 @@
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           }
@@ -110,7 +110,7 @@
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           }
@@ -140,7 +140,7 @@
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           },
@@ -169,7 +169,7 @@
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           }
@@ -199,13 +199,13 @@
         "preset_element_type": "NUCLEAR_REACTOR_PRESSURE_VESSEL",
         "properties": {
           "canonical_type": "reactor_pressure_vessel",
-          "chosen_primary_deltaT_K": 30.0,
-          "cold_leg_C": 290.0,
+          "chosen_primary_deltaT_K": 20.0,
+          "cold_leg_C": 300.0,
           "coolant": "water",
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           },
@@ -234,19 +234,19 @@
         "predefined_type": "",
         "preset_element_type": "NUCLEAR_STEAM_GENERATOR",
         "properties": {
-          "UA_MW_per_K": 5.5961578793542275,
-          "area_m2": 1865.3859597847425,
+          "UA_MW_per_K": 5.19860385419959,
+          "area_m2": 1732.8679513998632,
           "canonical_type": "steam_generator",
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           },
           "duty_MW": 300.0,
           "primary_hot_in_C": 320.0,
-          "primary_hot_out_C": 290.0,
+          "primary_hot_out_C": 300.0,
           "secondary_cold_in_C": 220.0,
           "secondary_hot_out_C": 280.0,
           "secondary_m_dot_kg_s": 1028.076671969517,
@@ -270,18 +270,18 @@
         "preset_element_type": "REACTOR_COOLANT_PUMP",
         "properties": {
           "canonical_type": "pump_primary",
-          "delta_p_MPa": 0.9072003067901004,
+          "delta_p_MPa": 1.2547406199904492,
           "design_summary": {
             "Q_MWth": 300.0,
             "condenser_pressure_MPa": 0.01,
-            "primary_deltaT_K": 30.0,
+            "primary_deltaT_K": 20.0,
             "primary_pressure_MPa": 15.5,
             "secondary_pressure_MPa": 6.5
           },
           "efficiency": 0.83,
-          "m_dot_kg_s": 1788.855275233358,
-          "rho_kg_m3": 715.9322467059217,
-          "shaft_power_MW": 2.731041992462365
+          "m_dot_kg_s": 2611.5540950872874,
+          "rho_kg_m3": 704.7594196887169,
+          "shaft_power_MW": 5.601882590128996
         },
         "width": 0
       }

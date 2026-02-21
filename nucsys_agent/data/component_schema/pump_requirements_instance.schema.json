@@ -1,0 +1,577 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/pump_requirements_instance.schema.json",
+  "title": "PumpRequirementsInstance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "instance_id",
+    "template_id",
+    "generated_utc",
+    "pump_profile",
+    "applicable_requirements",
+    "non_applicable_requirements",
+    "validation"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "generated_utc": {
+      "type": "string"
+    },
+    "pump_profile": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.org/schemas/pump_profile.schema.json",
+      "title": "PumpProfile",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pump_tag",
+        "pump_type",
+        "function",
+        "driver_type",
+        "code_class",
+        "safety_classification",
+        "seismic_category",
+        "environment_profile"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Optional unique ID for this pump profile."
+        },
+        "pump_tag": {
+          "type": "string"
+        },
+        "pump_type": {
+          "type": "string",
+          "enum": [
+            "centrifugal",
+            "vertical_turbine",
+            "positive_displacement",
+            "canned_motor",
+            "submersible"
+          ]
+        },
+        "function": {
+          "type": "string",
+          "enum": [
+            "reactor_coolant",
+            "safety_injection",
+            "residual_heat_removal",
+            "feedwater",
+            "service_water",
+            "chemical_volume_control"
+          ]
+        },
+        "driver_type": {
+          "type": "string",
+          "enum": [
+            "electric_motor",
+            "steam_turbine",
+            "diesel",
+            "hydraulic"
+          ]
+        },
+        "coupling_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "direct",
+            "flexible",
+            "magnetic"
+          ]
+        },
+        "code_class": {
+          "type": "string",
+          "enum": [
+            "ASME_III_Class_1",
+            "2",
+            "ASME_III_Class_2",
+            "3",
+            "ASME_III_Class_3",
+            "NonCode",
+            "non_code"
+          ]
+        },
+        "safety_classification": {
+          "type": "string",
+          "enum": [
+            "safety_related",
+            "non_safety",
+            "nonsafety",
+            "risk_informed"
+          ]
+        },
+        "seismic_category": {
+          "type": "string",
+          "enum": [
+            "Seismic_Category_I",
+            "II",
+            "Seismic_Category_II",
+            "NonSeismic",
+            "non_seismic"
+          ]
+        },
+        "qa_level": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NQA-1",
+            "ISO_9001",
+            "project_defined"
+          ]
+        },
+        "design_pressure": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MPa"
+        },
+        "design_temperature": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "suction_pressure_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MPa"
+        },
+        "discharge_pressure_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MPa"
+        },
+        "design_flowrate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/s"
+        },
+        "flowrate_min_continuous": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/s"
+        },
+        "flowrate_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/s"
+        },
+        "design_head": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "shutoff_head_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "npshr": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "npsha_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "min_npsh_margin": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "speed_rpm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "rpm"
+        },
+        "rated_power": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kW"
+        },
+        "motor_voltage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "efficiency_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "percent"
+        },
+        "vibration_limit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bearing_temperature_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "seal_leakage_limit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start_time_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "s"
+        },
+        "mission_time": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "h"
+        },
+        "start_stop_cycles": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "cycles"
+        },
+        "service_life_years": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "years"
+        },
+        "design_cycles": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "cycles"
+        },
+        "fluid_density": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/m3"
+        },
+        "fluid_viscosity": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "cP"
+        },
+        "solids_content_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "ppm"
+        },
+        "boron_concentration_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "ppm"
+        },
+        "seal_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lubrication_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment_profile": {
+          "type": "string",
+          "enum": [
+            "mild",
+            "harsh",
+            "DBA_profile_defined"
+          ]
+        },
+        "coastdown_time_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "s"
+        },
+        "runout_flow_limit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "minimum_flow_provision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Optional free-form metadata (system, location, notes, hazards, etc.)."
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicable_count",
+        "non_applicable_count",
+        "tbd_parameter_count"
+      ],
+      "properties": {
+        "applicable_count": {
+          "type": "integer"
+        },
+        "non_applicable_count": {
+          "type": "integer"
+        },
+        "tbd_parameter_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "applicable_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "type",
+          "verification",
+          "provenance_refs",
+          "status",
+          "parameter_values",
+          "tbd_parameters"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "verification": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "method",
+              "acceptance"
+            ],
+            "properties": {
+              "method": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "acceptance": {
+                "type": "string"
+              }
+            }
+          },
+          "provenance_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review_required",
+              "reviewed",
+              "approved"
+            ]
+          },
+          "parameter_values": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "tbd_parameters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applicability": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "conditions",
+              "matched"
+            ],
+            "properties": {
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "matched": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "non_applicable_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "conditions",
+          "reasons"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_status",
+        "error_count",
+        "warning_count",
+        "info_count",
+        "issue_count",
+        "issues"
+      ],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "error_count": {
+          "type": "integer"
+        },
+        "warning_count": {
+          "type": "integer"
+        },
+        "info_count": {
+          "type": "integer"
+        },
+        "issue_count": {
+          "type": "integer"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "severity",
+              "code",
+              "message"
+            ],
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "error",
+                  "warning",
+                  "info"
+                ]
+              },
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requirement_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

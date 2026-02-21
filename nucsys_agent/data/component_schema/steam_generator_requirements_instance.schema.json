@@ -1,0 +1,1079 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/steam_generator_requirements_instance.schema.json",
+  "title": "SteamGeneratorRequirementsInstance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "instance_id",
+    "template_id",
+    "generated_utc",
+    "steam_generator_profile",
+    "applicable_requirements",
+    "non_applicable_requirements",
+    "validation"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "generated_utc": {
+      "type": "string"
+    },
+    "steam_generator_profile": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.org/schemas/steam_generator_profile.schema.json",
+      "title": "SteamGeneratorProfile",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sg_tag",
+        "sg_type",
+        "reactor_type",
+        "code_class",
+        "safety_classification",
+        "seismic_category",
+        "eq_environment_profile"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Optional unique ID for this steam generator profile."
+        },
+        "sg_tag": {
+          "type": "string"
+        },
+        "sg_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sg_type": {
+          "type": "string",
+          "enum": [
+            "u_tube_recirc",
+            "once_through",
+            "helical_coil"
+          ]
+        },
+        "reactor_type": {
+          "type": "string",
+          "enum": [
+            "PWR",
+            "iPWR",
+            "SMR",
+            "test_reactor"
+          ]
+        },
+        "plant_unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "system_context": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NSSS",
+            "balance_of_plant",
+            "test_loop"
+          ]
+        },
+        "safety_classification": {
+          "type": "string",
+          "enum": [
+            "safety_related",
+            "non_safety",
+            "nonsafety"
+          ]
+        },
+        "seismic_category": {
+          "type": "string",
+          "enum": [
+            "Seismic_Category_I",
+            "II",
+            "Seismic_Category_II",
+            "non_seismic",
+            "NonSeismic"
+          ]
+        },
+        "code_class": {
+          "type": "string",
+          "enum": [
+            "ASME_III_Class_1",
+            "ASME_III_Class_2",
+            "ASME_III_Class_3",
+            "non_code",
+            "NonCode"
+          ]
+        },
+        "quality_program": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "ASME_NQA_1",
+            "ISO_19443",
+            "plant_QA_program"
+          ]
+        },
+        "design_life_years": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "design_cycles": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "design_pressure_primary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "design_temperature_primary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normal_pressure_primary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normal_temperature_primary_hot_leg": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normal_temperature_primary_cold_leg": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "design_pressure_secondary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "design_temperature_secondary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normal_pressure_secondary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normal_temperature_secondary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "thermal_duty_rated": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "thermal_duty_max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "steam_flowrate_rated": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "steam_pressure_rated": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "steam_temperature_rated": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "steam_quality_min": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "moisture_carryover_max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "feedwater_flowrate_rated": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "feedwater_temperature_rated": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "feedwater_chemistry_program": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "blowdown_flowrate_nominal": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "blowdown_heat_recovery": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primary_mass_flow": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "primary_pressure_drop_max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "secondary_pressure_drop_max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "approach_temperature_min": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fouling_factor_allowance": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "heat_transfer_area": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "recirculation_ratio": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "secondary_inventory_volume": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "steam_drum_volume": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "separator_dryer_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "separator_dryer_efficiency_min": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_spec": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_od": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_wall_thickness": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_length": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_pitch": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_arrangement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "number_of_tubes": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_end_condition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_to_tubesheet_joint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_expansion_length": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tubesheet_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tubesheet_thickness": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "channel_head_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "channel_head_cladding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "divider_plate_present": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "divider_plate_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shell_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shell_thickness": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "primary_side_nozzle_count": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "primary_nozzle_size": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "secondary_feedwater_nozzle_size": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "secondary_main_steam_nozzle_size": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "manway_count": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "manway_size": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supports_and_skirts": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "support_anchor_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "allowable_nozzle_loads_defined": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "thermal_expansion_allowance": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "insulation_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "drains_and_vents_provided": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instrumentation_channels": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "instrumentation_signal_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "leak_detection_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primary_to_secondary_leakage_operating_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "primary_to_secondary_leakage_accident_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "secondary_safety_valve_setpoint": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "secondary_safety_valve_capacity": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "overpressure_protection_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hydrotest_multiplier_primary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "hydrotest_multiplier_secondary": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "leak_test_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nondestructive_exam_extent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "radiography_required": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ultrasonic_required": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ect_baseline_preservice": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ect_probe_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "inspection_interval_months": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "inspection_scope_percent_tubes": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "inspection_access_constraints": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_integrity_assessment_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plugging_limit_percent": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_repair_strategy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sleeve_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plug_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stabilizer_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fiv_analysis_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stability_ratio_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tube_to_support_gap_design": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "avb_gap_design": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "wear_depth_limit_fraction_tw": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "wear_rate_limit_mm_per_efpy": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "foreign_object_barriers": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fosar_plan_required": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sludge_lancing_capability": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sludge_lancing_interval_months": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "chemical_cleaning_capability": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chemical_cleaning_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "secondary_pH_target_25C": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "chloride_limit_ppb": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "sulfate_limit_ppb": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "sodium_limit_ppb": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "oxygen_limit_ppb": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "conductivity_limit_uS_cm": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "iron_transport_limit_ppb": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "copper_transport_limit_ppb": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "hideout_return_management": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "layup_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "startup_chemistry_controls": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aging_management_program": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fatigue_usage_factor_limit": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fracture_toughness_program": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "seismic_demand_sse_g": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "eq_environment_profile": {
+          "type": "string",
+          "enum": [
+            "harsh",
+            "mild"
+          ]
+        },
+        "db_event_set": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fmea_required": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "maintainability_target_mttr_hours": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "spares_strategy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "records_retention_years": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Optional free-form metadata (system, location, notes, hazards, etc.)."
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicable_count",
+        "non_applicable_count",
+        "tbd_parameter_count"
+      ],
+      "properties": {
+        "applicable_count": {
+          "type": "integer"
+        },
+        "non_applicable_count": {
+          "type": "integer"
+        },
+        "tbd_parameter_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "applicable_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "type",
+          "verification",
+          "provenance_refs",
+          "status",
+          "parameter_values",
+          "tbd_parameters"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "verification": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "method",
+              "acceptance"
+            ],
+            "properties": {
+              "method": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "acceptance": {
+                "type": "string"
+              }
+            }
+          },
+          "provenance_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review_required",
+              "reviewed",
+              "approved"
+            ]
+          },
+          "parameter_values": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "tbd_parameters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applicability": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "conditions",
+              "matched"
+            ],
+            "properties": {
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "matched": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "non_applicable_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "conditions",
+          "reasons"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_status",
+        "error_count",
+        "warning_count",
+        "info_count",
+        "issue_count",
+        "issues"
+      ],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "error_count": {
+          "type": "integer"
+        },
+        "warning_count": {
+          "type": "integer"
+        },
+        "info_count": {
+          "type": "integer"
+        },
+        "issue_count": {
+          "type": "integer"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "severity",
+              "code",
+              "message"
+            ],
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "error",
+                  "warning",
+                  "info"
+                ]
+              },
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requirement_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

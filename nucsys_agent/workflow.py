@@ -250,11 +250,20 @@ def _apply_sizing(spec: DesignSpec, cfg: AgentConfig, buildings: dict[str, Build
             "condenser_pressure_MPa": cond_P,
         })
 
+def _apply_node_overrides(buildings: dict[str, Building], node_overrides: dict[str, dict]) -> None:
+    """Apply per-node property overrides on top of sizing results."""
+    all_nodes = {n.name: n for b in buildings.values() for n in b.parts}
+    for node_name, props in node_overrides.items():
+        if node_name in all_nodes:
+            all_nodes[node_name].properties.update(props)
+
+
 def run_agent_from_spec(
     spec: DesignSpec,
     topology_template: dict[str, Any],
     topo_card: Any,
     cfg: AgentConfig | None = None,
+    node_overrides: dict[str, dict] | None = None,
 ) -> AgentResult:
     """Run the design pipeline from a pre-built spec and (optionally pruned) topology.
 
@@ -269,6 +278,9 @@ def run_agent_from_spec(
     _merge_interface_node(buildings, interface_name=interface)
 
     _apply_sizing(spec, cfg, buildings)
+
+    if node_overrides:
+        _apply_node_overrides(buildings, node_overrides)
 
     all_nodes = [n for b in buildings.values() for n in b.parts]
     issues = validate_nodes(all_nodes, ontology)

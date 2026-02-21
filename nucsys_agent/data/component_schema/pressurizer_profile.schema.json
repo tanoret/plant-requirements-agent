@@ -1,0 +1,905 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/pressurizer_profile.schema.json",
+  "title": "PressurizerProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pressurizer_tag",
+    "pressurizer_design",
+    "service",
+    "code_class",
+    "safety_classification",
+    "seismic_category",
+    "harsh_environment"
+  ],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "description": "Optional unique ID for this pressurizer profile."
+    },
+    "pressurizer_tag": {
+      "type": "string"
+    },
+    "pressurizer_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reactor_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pressurizer_design": {
+      "type": "string",
+      "enum": [
+        "separate_vessel",
+        "integral"
+      ]
+    },
+    "pressurizer_orientation": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "vertical",
+        "horizontal"
+      ]
+    },
+    "service": {
+      "type": "string",
+      "enum": [
+        "rcs_pressure_control",
+        "integrated_pressure_control"
+      ]
+    },
+    "code_class": {
+      "type": "string",
+      "enum": [
+        "ASME_III_Class_1",
+        "2",
+        "ASME_III_Class_2",
+        "3",
+        "ASME_III_Class_3",
+        "NonCode",
+        "non_code"
+      ]
+    },
+    "safety_classification": {
+      "type": "string",
+      "enum": [
+        "safety_related",
+        "non_safety",
+        "nonsafety",
+        "risk_informed"
+      ]
+    },
+    "qa_level": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NQA-1",
+        "ISO_19443",
+        "commercial_grade"
+      ]
+    },
+    "seismic_category": {
+      "type": "string",
+      "enum": [
+        "Seismic_Category_I",
+        "II",
+        "Seismic_Category_II",
+        "NonSeismic",
+        "non_seismic"
+      ]
+    },
+    "design_life_years": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "years"
+    },
+    "design_cycles": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "cycles"
+    },
+    "design_pressure": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "design_temperature": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "normal_pressure_setpoint": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "pressure_control_band": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "high_pressure_trip": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "low_pressure_trip": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "normal_level_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "level_control_range_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "total_volume_m3": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "m3"
+    },
+    "vapor_space_volume_m3": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "m3"
+    },
+    "liquid_volume_m3": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "m3"
+    },
+    "insurge_capacity_m3": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "m3"
+    },
+    "outsurge_capacity_m3": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "m3"
+    },
+    "heater_power_total": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MW"
+    },
+    "heater_group_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "heater_step_power": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MW"
+    },
+    "heater_voltage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "V"
+    },
+    "heater_sheath_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "heater_sleeve_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "heater_bundle_removable": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "heater_overtemp_trip": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "heater_ground_fault_protection": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "spray_system_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "spray_flow_max": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kg/s"
+    },
+    "spray_nozzle_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "spray_nozzle_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spray_valve_actuation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spray_water_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spray_line_design_pressure": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "spray_line_design_temperature": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "spray_response_time": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "s"
+    },
+    "surge_line_dn": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "surge_line_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "surge_line_design_temperature": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "surge_line_length_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "m"
+    },
+    "safety_valve_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "safety_valve_setpoint": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "safety_valve_capacity": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kg/s"
+    },
+    "porv_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "porv_setpoint": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "porv_capacity": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kg/s"
+    },
+    "relief_discharge_backpressure_limit": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "discharge_tank_design_pressure": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "discharge_tank_design_temperature": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "shell_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cladding_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cladding_thickness_mm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "mm"
+    },
+    "nozzle_material": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "head_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "liner_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "support_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "support_anchor_bolt_size": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sse_peak_g": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "g"
+    },
+    "hydrotest_pressure": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "MPa"
+    },
+    "leak_rate_limit": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kg/h"
+    },
+    "ndt_volumetric_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ndt_surface_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pwht_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "post_weld_heat_treat_temp": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "fracture_toughness_program": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pt_limits_program": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "fatigue_usage_factor_limit": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "fraction"
+    },
+    "stratification_analysis_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "heat_loss_max": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "kW"
+    },
+    "insulation_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "insulation_thickness_mm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "mm"
+    },
+    "surface_temp_limit": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "harsh_environment": {
+      "type": "boolean"
+    },
+    "env_temp_high": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "env_radiation_total": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Gy"
+    },
+    "env_humidity_high": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%RH"
+    },
+    "instrument_channel_redundancy": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pressure_sensor_accuracy": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%span"
+    },
+    "level_sensor_accuracy": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%span"
+    },
+    "temperature_sensor_accuracy": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "control_system_interface": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cyber_security_zone": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "isi_interval_years": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "years"
+    },
+    "inspection_access_provided": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "lift_points_provided": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "drain_and_vent_provisions": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "fme_controls_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "cleanliness_level": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "shipping_preservation_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "spare_heater_bundle_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "spare_instrument_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "document_retention_years": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "years"
+    },
+    "nozzle_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "spray_line_check_valve_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "surge_line_thermal_sleeve_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "surge_line_nozzle_inner_radius_mm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "mm"
+    },
+    "heater_current_monitoring": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "heater_zone_control": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spray_control_valve_cv": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Cv"
+    },
+    "spray_valve_fail_position": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "porv_fail_position": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "safety_valve_blowdown_percent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "%"
+    },
+    "porv_block_valve_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "relief_line_quench_device_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "pressurizer_heater_penetration_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "count"
+    },
+    "electrical_penetration_eq_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "normal_operating_temp": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "spray_water_temp": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C"
+    },
+    "max_heatup_rate": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C/hr"
+    },
+    "max_cooldown_rate": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "C/hr"
+    },
+    "design_heatup_cooldown_cycles": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "cycles"
+    },
+    "rps_actuation_setpoints_defined": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "heater_interlocks_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "spray_interlocks_required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "relief_valve_lift_assist_present": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "steam_space_noncondensable_control": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vent_path_to_relief_tank": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "primary_chemistry_boron_ppm_range": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dissolved_hydrogen_cckg_range": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "chloride_limit_ppb": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "ppb"
+    },
+    "fluoride_limit_ppb": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "ppb"
+    },
+    "oxygen_limit_ppb": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "ppb"
+    },
+    "weld_overlay_repair_allowed": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "clad_repair_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "insulation_removable_for_isi": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional free-form metadata (system, location, notes, hazards, etc.)."
+    }
+  }
+}

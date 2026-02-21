@@ -15,15 +15,15 @@ def test_chat_first_turn_returns_question():
     assert len(data["agent_reply"]) > 0
 
 
-def test_chat_first_turn_fully_specified_jumps_to_review():
+def test_chat_first_turn_fully_specified_jumps_to_param_review():
     resp = client.post("/chat", json={
         "initial_query": "design primary coolant loop for 300 MWth, water",
         "history": [],
     })
     assert resp.status_code == 200
     data = resp.json()
-    assert data["phase"] == "component_review"
-    assert "Proposed components" in data["agent_reply"]
+    assert data["phase"] == "param_review"
+    assert "Operating parameters" in data["agent_reply"]
 
 
 def test_chat_stateless_full_flow():
@@ -45,16 +45,21 @@ def test_chat_stateless_full_flow():
     }
 
     for _ in range(20):
-        # Determine answer
+        # Check phase first — content checks can false-match (e.g. "Thermal power" in design results)
+        phase = data.get("phase", "")
         last_q = data["agent_reply"].lower()
-        if "system" in last_q:
+        if phase == "design_review":
+            ans = "done"
+        elif phase == "param_review":
+            ans = "ok"
+        elif phase == "component_review":
+            ans = "ok"
+        elif "system" in last_q:
             ans = "primary_loop"
         elif "thermal" in last_q or "power" in last_q:
             ans = "300 MWth"
         elif "coolant" in last_q:
             ans = "water"
-        elif "component" in last_q or "proposed" in last_q:
-            ans = "ok"
         else:
             ans = ""  # accept defaults
 

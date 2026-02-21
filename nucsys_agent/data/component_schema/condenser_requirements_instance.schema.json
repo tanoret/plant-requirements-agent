@@ -1,0 +1,1038 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/condenser_requirements_instance.schema.json",
+  "title": "CondenserRequirementsInstance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "instance_id",
+    "template_id",
+    "generated_utc",
+    "condenser_profile",
+    "applicable_requirements",
+    "non_applicable_requirements",
+    "validation"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "generated_utc": {
+      "type": "string"
+    },
+    "condenser_profile": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.org/schemas/condenser_profile.schema.json",
+      "title": "CondenserProfile",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condenser_tag",
+        "condenser_type",
+        "service",
+        "code_class",
+        "safety_classification",
+        "seismic_category",
+        "environment_profile"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Optional unique ID for this condenser profile."
+        },
+        "condenser_tag": {
+          "type": "string"
+        },
+        "condenser_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "condenser_type": {
+          "type": "string",
+          "enum": [
+            "surface",
+            "air_cooled",
+            "jet"
+          ]
+        },
+        "service": {
+          "type": "string",
+          "enum": [
+            "main_turbine_condenser",
+            "auxiliary_condenser",
+            "shutdown_condenser"
+          ]
+        },
+        "reactor_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plant_unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code_class": {
+          "type": "string",
+          "enum": [
+            "ASME_III_Class_3",
+            "B31_1",
+            "VIII",
+            "NonCode",
+            "non_code"
+          ]
+        },
+        "quality_group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "NonNuclear"
+          ]
+        },
+        "safety_classification": {
+          "type": "string",
+          "enum": [
+            "safety_related",
+            "nonsafety",
+            "non_safety",
+            "important_to_safety",
+            "risk_informed"
+          ]
+        },
+        "seismic_category": {
+          "type": "string",
+          "enum": [
+            "Seismic_Category_I",
+            "NonSeismic",
+            "non_seismic"
+          ]
+        },
+        "qa_level": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Q1",
+            "Q2",
+            "commercial"
+          ]
+        },
+        "environment_profile": {
+          "type": "string",
+          "enum": [
+            "mild",
+            "harsh",
+            "outdoor",
+            "marine",
+            "radiological"
+          ]
+        },
+        "design_life_years": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "years"
+        },
+        "service_life_years": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "years"
+        },
+        "availability_target": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "%"
+        },
+        "reliability_target_mtbf": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "hours"
+        },
+        "cooling_system": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "once_through",
+            "cooling_tower",
+            "hybrid",
+            "air_cooled"
+          ]
+        },
+        "cooling_water_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "river",
+            "lake",
+            "ocean",
+            "brackish",
+            "cooling_tower_basin",
+            "treated_reuse"
+          ]
+        },
+        "cw_flowrate_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m3/s"
+        },
+        "cw_inlet_temp_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "cw_outlet_temp_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "cw_max_temp": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "cw_min_temp": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "cw_pressure_available": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa"
+        },
+        "cw_pressure_drop_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa"
+        },
+        "cw_velocity_tube_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m/s"
+        },
+        "cw_chemistry_program": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "biofouling_control_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fouling_factor_allowance": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m2-K/W"
+        },
+        "thermal_duty_rated": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MW"
+        },
+        "thermal_duty_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MW"
+        },
+        "steam_flowrate_rated": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/s"
+        },
+        "steam_flowrate_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/s"
+        },
+        "turbine_exhaust_pressure_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_abs"
+        },
+        "vacuum_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_abs"
+        },
+        "vacuum_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_abs"
+        },
+        "backpressure_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_abs"
+        },
+        "terminal_temperature_difference_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "approach_temperature_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "condensate_subcooling_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "hotwell_volume": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m3"
+        },
+        "hotwell_level_setpoint": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "%"
+        },
+        "condensate_pump_npsh_margin_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "deaeration_performance": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dissolved_oxygen_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "ppb"
+        },
+        "conductivity_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "uS/cm"
+        },
+        "chloride_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "ppb"
+        },
+        "sodium_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "ppb"
+        },
+        "radiological_monitoring_required": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "radiation_alarm_setpoint": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "cps"
+        },
+        "air_removal_system_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "steam_jet_ejector",
+            "liquid_ring_vacuum_pump",
+            "dry_vacuum_pump"
+          ]
+        },
+        "hogging_capacity": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/h"
+        },
+        "holding_capacity": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/h"
+        },
+        "air_inleakage_rate_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/h"
+        },
+        "noncondensible_removal_capacity": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/h"
+        },
+        "air_removal_intercooler_present": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shell_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "waterbox_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tubesheet_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_od": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "mm"
+        },
+        "tube_wall_thickness": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "mm"
+        },
+        "tube_length": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m"
+        },
+        "tube_count": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "count"
+        },
+        "tube_pitch": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "mm"
+        },
+        "tube_layout": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_to_tubesheet_joint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_support_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "impingement_plate_present": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "steam_distribution_device": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shell_side_pressure_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_g"
+        },
+        "shell_external_pressure_design": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa"
+        },
+        "waterbox_design_pressure": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_g"
+        },
+        "design_temperature": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "hydrotest_pressure": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kPa_g"
+        },
+        "leak_test_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "max_allowable_leak_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Pa-m3/s"
+        },
+        "tube_leakage_operating_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "kg/h"
+        },
+        "tube_plugging_limit_percent": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "%"
+        },
+        "tube_sleeving_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "inspection_interval_months": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "months"
+        },
+        "inspection_method_tubes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_cleaning_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "online_ball_cleaning": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "debris_filter_present": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tube_sheet_coating": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "waterbox_lining": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cathodic_protection": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chlorination_limits": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "discharge_temperature_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "C"
+        },
+        "intake_velocity_limit": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "m/s"
+        },
+        "screening_system_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "backwash_system_present": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instrumentation_package": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vacuum_pressure_transmitters": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "count"
+        },
+        "temperature_sensors_count": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "count"
+        },
+        "flow_meter_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_logging_interval_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "s"
+        },
+        "alarm_philosophy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "spare_parts_strategy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "maint_access_class": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "alera_program_applicable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lifting_points_certified": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shipping_constraints": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "factory_acceptance_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "site_acceptance_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "performance_test_standard": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "baseline_performance_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aging_management_program": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "design_transients_count": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "count"
+        },
+        "flood_hazard_applicable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tornado_missile_hazard_applicable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fire_hazard_applicable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Optional free-form metadata (system, location, notes, hazards, etc.)."
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicable_count",
+        "non_applicable_count",
+        "tbd_parameter_count"
+      ],
+      "properties": {
+        "applicable_count": {
+          "type": "integer"
+        },
+        "non_applicable_count": {
+          "type": "integer"
+        },
+        "tbd_parameter_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "applicable_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "type",
+          "verification",
+          "provenance_refs",
+          "status",
+          "parameter_values",
+          "tbd_parameters"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "verification": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "method",
+              "acceptance"
+            ],
+            "properties": {
+              "method": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "acceptance": {
+                "type": "string"
+              }
+            }
+          },
+          "provenance_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "review_required",
+              "reviewed",
+              "approved"
+            ]
+          },
+          "parameter_values": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "tbd_parameters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applicability": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "conditions",
+              "matched"
+            ],
+            "properties": {
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "matched": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "non_applicable_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "conditions",
+          "reasons"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_status",
+        "error_count",
+        "warning_count",
+        "info_count",
+        "issue_count",
+        "issues"
+      ],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "error_count": {
+          "type": "integer"
+        },
+        "warning_count": {
+          "type": "integer"
+        },
+        "info_count": {
+          "type": "integer"
+        },
+        "issue_count": {
+          "type": "integer"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "severity",
+              "code",
+              "message"
+            ],
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "error",
+                  "warning",
+                  "info"
+                ]
+              },
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requirement_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

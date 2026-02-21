@@ -1,0 +1,3122 @@
+{
+  "template_id": "primary_loop_valve_baseline_v0.2_150reqs",
+  "created_utc": "2026-02-02T16:48:36Z",
+  "scope": {
+    "description": "Baseline engineering requirements library (superset) for valves used in the reactor primary loop / reactor coolant pressure boundary context. Applicability is filtered by a ValveProfile and project licensing basis.",
+    "licensing_basis_assumption": "US NRC-style framework (10 CFR Part 50/52) with code-of-record per 10 CFR 50.55a where applicable.",
+    "notes": [
+      "This library is intentionally a superset. Not every requirement applies to every valve.",
+      "Clause-level traceability (e.g., exact ASME/NRC clause IDs) is expected to be added once the standards database is ingested and indexed."
+    ]
+  },
+  "standards_basis_refs": [
+    {
+      "ref_id": "CFR_10_50_55a",
+      "title": "10 CFR 50.55a Codes and standards"
+    },
+    {
+      "ref_id": "CFR_10_50_AppB",
+      "title": "10 CFR Part 50 Appendix B Quality Assurance Criteria for Nuclear Power Plants and Fuel Reprocessing Plants"
+    },
+    {
+      "ref_id": "CFR_10_50_AppA",
+      "title": "10 CFR Part 50 Appendix A General Design Criteria for Nuclear Power Plants (as applicable to licensing basis)"
+    },
+    {
+      "ref_id": "CFR_10_50_49",
+      "title": "10 CFR 50.49 Environmental qualification of electric equipment important to safety"
+    },
+    {
+      "ref_id": "NRC_RG_1_100_Rev3",
+      "title": "Regulatory Guide 1.100 Rev. 3 Seismic Qualification of Electric and Mechanical Equipment"
+    },
+    {
+      "ref_id": "NRC_RG_1_73_Rev2",
+      "title": "Regulatory Guide 1.73 Rev. 2 Qualification Tests of Safety-Related Actuators"
+    },
+    {
+      "ref_id": "NRC_NUREG_1482_R3",
+      "title": "NUREG-1482 Rev. 3 Guidelines for Inservice Testing (IST) at Nuclear Power Plants"
+    },
+    {
+      "ref_id": "NRC_RG_1_28_Rev6",
+      "title": "Regulatory Guide 1.28 Rev. 6 Quality Assurance Program Criteria (endorses ASME NQA-1 editions with positions)"
+    },
+    {
+      "ref_id": "NRC_RG_1_29_Rev6",
+      "title": "Regulatory Guide 1.29 Rev. 6 Seismic Design Classification"
+    }
+  ],
+  "parameters": {
+    "valve_tag": {
+      "type": "string",
+      "example": "RCS-VLV-001"
+    },
+    "valve_type": {
+      "type": "string",
+      "example": "gate|globe|check|ball|butterfly|relief"
+    },
+    "function": {
+      "type": "string",
+      "example": "isolation|flow_control|non_return|overpressure_protection"
+    },
+    "actuation_type": {
+      "type": "string",
+      "example": "manual|MOV|AOV|SOV|HOV"
+    },
+    "code_class": {
+      "type": "string",
+      "example": "ASME_III_Class_1|2|3|NonCode"
+    },
+    "safety_classification": {
+      "type": "string",
+      "example": "safety_related|non_safety|risk_informed"
+    },
+    "seismic_category": {
+      "type": "string",
+      "example": "Seismic_Category_I|II|NonSeismic"
+    },
+    "design_pressure": {
+      "type": "number",
+      "units": "MPa"
+    },
+    "design_temperature": {
+      "type": "number",
+      "units": "C"
+    },
+    "dp_max": {
+      "type": "number",
+      "units": "MPa"
+    },
+    "flowrate_max": {
+      "type": "number",
+      "units": "kg/s"
+    },
+    "stroke_time_limit": {
+      "type": "number",
+      "units": "s"
+    },
+    "seat_leakage_limit": {
+      "type": "string",
+      "example": "TBD_by_safety_analysis_or_spec"
+    },
+    "relief_setpoint": {
+      "type": "number",
+      "units": "MPa"
+    },
+    "service_life_years": {
+      "type": "number",
+      "units": "years"
+    },
+    "design_cycles": {
+      "type": "number",
+      "units": "cycles"
+    },
+    "environment_profile": {
+      "type": "string",
+      "example": "mild|harsh|DBA_profile_defined"
+    }
+  },
+  "requirement_sets": [
+    {
+      "category": "1. Programmatic, classification, and design basis",
+      "requirements": [
+        {
+          "id": "PLV-001",
+          "text": "The project shall define and record the licensing basis and code-of-record for the valve, including applicable regulations, incorporated codes/standards, and edition/addenda where required.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Documented licensing basis and code-of-record exists and is under configuration control."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLV-002",
+          "text": "The valve’s safety function(s), required position(s) for each analyzed event, and success criteria shall be explicitly defined.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Safety function(s), positions, and success criteria are documented and traceable to the design basis."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-003",
+          "text": "The valve shall be classified (code class, safety classification, seismic category, QA level) using the project’s approved classification methodology.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Classification is documented, reviewed, approved, and traceable to project methodology."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_29_Rev6",
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-004",
+          "text": "Design inputs for normal, transient, and accident conditions applicable to the valve shall be defined, including pressure, temperature, differential pressure, flow, and environmental conditions.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled design-input set exists and is referenced by calculations/specifications."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-005",
+          "text": "The project shall define the bounding transient and accident scenarios that govern valve operability and integrity (including required duty cycles and timing requirements).",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Bounding scenarios and governing cases are documented and linked to requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-006",
+          "text": "Interfaces to piping, supports, electrical power, control signals, and instrumentation shall be defined in controlled interface documents or drawings.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Interface definitions exist, are consistent across disciplines, and are under document control."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-007",
+          "text": "System-level constraints that affect the valve (e.g., water hammer limits, allowable closure times, thermal stratification constraints) shall be captured as design inputs.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Constraints are documented and referenced by the valve specification and analyses."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-008",
+          "text": "The project shall define and control credited setpoints/limits (e.g., stroke time, seat leakage, relief setpoint, position indication needs) for the valve.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Setpoints/limits are documented with justification and are under configuration control."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-009",
+          "text": "A verification plan shall be established that maps each valve requirement to a verification method (test, analysis, inspection, or demonstration) and acceptance criteria.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Requirements-to-verification mapping exists and includes measurable acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-010",
+          "text": "Assumptions, TBD/TBR items, and required engineering inputs for the valve shall be tracked with defined owners and closure criteria.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Assumption/TBD log exists and closure criteria are defined and managed."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-011",
+          "text": "Design reviews for the valve specification and design outputs shall be performed and documented commensurate with the valve’s safety classification.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Review records demonstrate independent review and approval per QA procedures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-012",
+          "text": "If commercial-grade items or services are used for safety-related applications, the project shall define the dedication strategy and critical characteristics for acceptance.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Dedication plan includes critical characteristics, methods, and acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-013",
+          "text": "A requirements traceability matrix shall be maintained that links valve requirements to design basis sources and verification evidence.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Traceability exists from requirement to source and to verification evidence."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-014",
+          "text": "The valve specification shall be placed under configuration control before procurement/fabrication begins, and released revisions shall be uniquely identified.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled revision exists; release and revision history are auditable."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-015",
+          "text": "Changes to valve requirements, design inputs, setpoints, or qualification basis shall be evaluated for impact and controlled through the project change control process.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Change evaluations are documented and demonstrate impact assessment and approvals."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "2. Pressure boundary integrity and structural design",
+      "requirements": [
+        {
+          "id": "PLV-016",
+          "text": "The valve pressure boundary shall be designed, fabricated, examined, and tested in accordance with the applicable code class and code-of-record requirements.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis"
+            ],
+            "acceptance": "Design and manufacturing records demonstrate code compliance to the defined code-of-record."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLV-017",
+          "text": "The valve shall be rated for the specified design pressure and design temperature, including applicable transients and design margins defined by the design basis.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Ratings and analyses demonstrate capability at design conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-018",
+          "text": "The valve assembly shall withstand combined loads from pressure, thermal gradients, piping reactions, and operational loads without loss of pressure boundary integrity.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Structural evaluation demonstrates allowable limits are met for governing load combinations."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-019",
+          "text": "If classified as Seismic Category I (or equivalent), the valve pressure boundary shall maintain integrity for the seismic load combinations defined by the seismic design basis.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Seismic evaluation/qualification demonstrates integrity for credited seismic conditions."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_29_Rev6",
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLV-020",
+          "text": "The valve design shall address fatigue and cyclic service consistent with the specified design cycles and transients.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Fatigue evaluation meets acceptance criteria for the applicable code-of-record/design basis."
+          },
+          "applicability": {
+            "when": [
+              "design_cycles>0"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-021",
+          "text": "Thermal transients and thermal distortion effects shall be evaluated to prevent binding, loss of operability, or unacceptable stresses.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Thermal evaluation demonstrates operability and acceptable stress limits for governing transients."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-022",
+          "text": "Bolted joints and gaskets shall be designed to maintain leak-tightness under all applicable load combinations, including thermal and seismic loads as applicable.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Joint design and assembly controls demonstrate leak-tightness capability."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-023",
+          "text": "The valve stem/shaft retention design shall prevent stem blowout or ejection under design pressure and loading.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Design features prevent blowout; verified by drawing review and/or analysis."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-024",
+          "text": "Body-to-bonnet (or equivalent pressure boundary closure) design shall prevent separation under design pressure and external loads.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Analysis demonstrates positive retention and adequate margin under design loads."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-025",
+          "text": "Pressure boundary wall thickness shall include allowances appropriate for manufacturing tolerances and anticipated degradation mechanisms for the specified service life.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Wall thickness basis is documented and meets defined margins for service life."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-026",
+          "text": "Weld-end and flange-end configurations (as applicable) shall be compatible with the piping design basis and shall maintain required weld preparations and flange facing requirements.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Interface dimensions and preparation requirements are specified and verified on drawings."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-027",
+          "text": "Non-destructive examination (NDE) requirements for pressure boundary materials and welds shall be specified and performed to acceptance criteria commensurate with code class.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "NDE procedures, personnel qualifications, and results meet specified acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLV-028",
+          "text": "Pressure boundary testing (hydrostatic and/or pneumatic) shall be performed with defined test pressure, hold time, and acceptance criteria.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Recorded test results meet acceptance criteria with no unacceptable leakage or deformation."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLV-029",
+          "text": "The valve shall withstand the maximum specified differential pressure {{dp_max}} without structural damage or permanent deformation that impairs function.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation demonstrates structural integrity and operability at dp_max."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-030",
+          "text": "External leakage paths (packing, body joints, plugs) shall be controlled such that leakage remains within defined limits under applicable conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Leakage test results meet defined limits for governing conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-031",
+          "text": "If a backseat (or equivalent) feature is provided and credited, it shall maintain function under applicable loads and conditions and shall not compromise pressure boundary integrity.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Backseat function is demonstrated under defined conditions when credited."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-032",
+          "text": "Potential flow-induced vibration and resonance effects for the valve body and internals shall be evaluated when operating conditions could induce damaging vibration.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation identifies vibration risks and documents mitigations if needed."
+          },
+          "applicability": {
+            "when": [
+              "function=flow_control|isolation"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-033",
+          "text": "Each valve shall have a durable nameplate/marking including unique identifier, size/rating, materials (as required), and manufacturer information to support traceability.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Marking meets specification and supports unique identification and traceability."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "3. Interfaces with piping systems and installation loads",
+      "requirements": [
+        {
+          "id": "PLV-034",
+          "text": "End connections and interface dimensions shall be compatible with the specified piping interface standard(s) and installation configuration.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Interface drawings/specs match piping design requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-035",
+          "text": "The valve face-to-face (or end-to-end) dimensions and orientation constraints shall be specified to support plant layout and maintenance access.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Valve envelope and dimensions match layout requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-036",
+          "text": "For check valves and directional devices, the required flow direction shall be clearly identified and marked, and installation orientation requirements shall be specified.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Flow direction and orientation markings/instructions are present and correct."
+          },
+          "applicability": {
+            "when": [
+              "valve_type=check"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-037",
+          "text": "Allowable piping reaction loads at the valve nozzles/end connections shall be specified and verified to be compatible with the piping stress design.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Allowables are documented; piping loads are within allowables."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-038",
+          "text": "Support, anchor, and restraint requirements for the valve and actuator assembly shall be specified, including any installation-specific bracing required.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Support/anchor requirements are documented and consistent with structural/piping design."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-039",
+          "text": "Actuator-to-valve mounting interface requirements (dimensions, bolt patterns, allowable loads) shall be specified and verified.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Mounting interface drawings/specifications are complete and verified."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-040",
+          "text": "Electrical power interface requirements (voltage, frequency, inrush current, grounding/bonding, connectors) shall be specified where applicable.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Electrical interface requirements are documented and consistent with plant electrical design."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-041",
+          "text": "Control signal interface requirements (command types, contact ratings, signal levels, fail states) shall be specified where applicable.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Control interface requirements are documented and verified by test/inspection."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-042",
+          "text": "For pneumatic or hydraulic actuators, supply interface requirements (pressure, flow, quality, filtration) and connection types shall be specified.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Supply requirements are documented and consistent with plant utility system design."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=AOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-043",
+          "text": "Position indication and/or limit switch interfaces shall be specified, including required redundancy and contact state conventions if applicable.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Indication interface requirements are defined and verified in design documents."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-044",
+          "text": "Clearances and access envelopes required for operation, inspection, and maintenance shall be defined (including handwheel swing, actuator removal clearance, and tooling access).",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Defined envelopes support intended maintenance and testing tasks."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-045",
+          "text": "Handling, lifting, shipping, and storage constraints (including preservation and allowable orientations) shall be specified and provided with the valve documentation package.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Handling/shipping/storage requirements are documented and provided."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "4. Materials, cleanliness, and compatibility",
+      "requirements": [
+        {
+          "id": "PLV-046",
+          "text": "Pressure boundary materials shall be specified, traceable to certified material test reports (CMTRs), and controlled to prevent substitution.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Material traceability is demonstrated from heat/lot to installed item."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_RG_1_28_Rev6"
+          ]
+        },
+        {
+          "id": "PLV-047",
+          "text": "Materials in contact with primary coolant shall be compatible with specified coolant chemistry and operating temperature to prevent unacceptable corrosion, SCC, erosion, or embrittlement over service life.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Materials selection rationale demonstrates compatibility for the defined environment and life."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-048",
+          "text": "Material selection shall consider susceptibility to stress corrosion cracking and irradiation-assisted degradation for the expected environment and exposure, and document the basis for selection.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Documented evaluation supports material selection for expected environment and life."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-049",
+          "text": "Valve trim and hardfacing materials shall be selected to minimize galling, wear, and erosion under the specified duty and differential pressure conditions.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Trim/hardfacing selection is justified and meets duty requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-050",
+          "text": "Packing, gasket, and seal materials shall be compatible with the operating and accident environment profiles and qualified for the service life where credited for safety function.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Qualification evidence exists for credited sealing materials under required conditions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-051",
+          "text": "If elastomers/polymers are used in safety-related functions, their qualified life and aging assumptions shall be established and tracked.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Qualified life is documented; tracking process exists for replacement intervals."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-052",
+          "text": "Lubricants and assembly compounds shall be compatible with service temperature, radiation, and coolant chemistry, and shall not introduce unacceptable contamination to the primary system.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Specified lubricants are documented and verified in procurement and assembly records."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-053",
+          "text": "Cleanliness requirements for fabrication, assembly, shipping, storage, and installation shall be defined to prevent introduction of foreign material to the primary system.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Cleaning and packaging controls are documented and verified by records."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-054",
+          "text": "Foreign material exclusion (FME) controls shall be applied during valve assembly, testing, packaging, and installation as required by the primary system cleanliness program.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "FME controls are documented and verifiable by records and inspections."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-055",
+          "text": "Sealing surfaces and critical seating areas shall have specified surface finish and dimensional tolerances appropriate to achieve the required leakage limits.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Surface finish/tolerances are specified and verified by inspection records."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control|non_return"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-056",
+          "text": "Coatings, paints, or platings (if used) shall be compatible with expected temperature/radiation and shall not flake or degrade in a manner that creates foreign material risk.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Coating selection is justified; inspection verifies compliance."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-057",
+          "text": "Welding filler materials, heat treatment, and welding procedures for pressure boundary welds shall be controlled and traceable commensurate with the code class.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "WPS/PQR, welder qualifications, and filler traceability are documented and controlled."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a",
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-058",
+          "text": "Dissimilar metal interfaces shall be evaluated for galvanic corrosion risk and mitigated as necessary for the service environment.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation identifies corrosion risk and documents mitigations when needed."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-059",
+          "text": "Material certifications, heat treatment records, and critical process records shall be retained and retrievable under the QA records program.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Records are complete, controlled, and retrievable per retention requirements."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_RG_1_28_Rev6"
+          ]
+        },
+        {
+          "id": "PLV-060",
+          "text": "Storage preservation requirements (e.g., end caps, desiccant, corrosion inhibitors, periodic inspection) shall be specified to prevent degradation prior to installation.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Preservation requirements are documented and verified by storage/receiving records."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "5. Functional performance (flow, leakage, operability)",
+      "requirements": [
+        {
+          "id": "PLV-061",
+          "text": "The valve shall perform its defined function (isolation, flow control, non-return, or overpressure protection) under all credited operating modes and design-basis conditions.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Functional performance is demonstrated for defined scenarios and acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-062",
+          "text": "For isolation valves, the valve shall achieve and maintain isolation consistent with the specified seat leakage limit {{seat_leakage_limit}} under defined bounding conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Seat leakage is <= seat_leakage_limit for defined test conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-063",
+          "text": "For isolation or control valves, the valve shall achieve the required position(s) within the specified stroke time limit {{stroke_time_limit}} under bounding differential pressure and environmental conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Measured stroke time meets stroke_time_limit for bounding conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-064",
+          "text": "The valve shall operate without binding, galling, or loss of operability across the specified differential pressure range up to {{dp_max}}.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Operability is demonstrated across required dp range and temperatures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-065",
+          "text": "The valve flow capacity (Cv/Kv or equivalent) shall meet system flow requirements up to {{flowrate_max}} with pressure drop and noise/vibration within allowable limits defined by the design basis.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Flow capacity and pressure drop meet design requirements; adverse effects are within allowable limits."
+          },
+          "applicability": {
+            "when": [
+              "function=flow_control|isolation"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-066",
+          "text": "For control valves, the control characteristic (e.g., equal percentage, linear) and installed rangeability shall meet system control performance requirements.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Control performance metrics meet specified requirements across operating range."
+          },
+          "applicability": {
+            "when": [
+              "function=flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-067",
+          "text": "For control valves, hysteresis, deadband, and repeatability shall be within specified limits to support stable control.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Measured hysteresis/deadband/repeatability meet specified limits."
+          },
+          "applicability": {
+            "when": [
+              "function=flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-068",
+          "text": "For control valves, the valve shall not exhibit unacceptable oscillation, chatter, or hunting in the expected operating envelope.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Testing/analysis demonstrates stable operation under representative conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-069",
+          "text": "For check valves, the valve shall prevent reverse flow consistent with defined non-return performance criteria and shall close reliably for the specified flow and pressure conditions.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Reverse flow prevention meets defined criteria; closure is reliable."
+          },
+          "applicability": {
+            "when": [
+              "valve_type=check",
+              "function=non_return"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-070",
+          "text": "For check valves, closure characteristics shall minimize slam-induced loads and water hammer consistent with system limits when applicable.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation demonstrates check valve closure characteristics meet system dynamic constraints."
+          },
+          "applicability": {
+            "when": [
+              "valve_type=check"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-071",
+          "text": "For relief/safety valves, the valve shall lift at the specified relief setpoint {{relief_setpoint}} within defined tolerance and shall reseat within defined blowdown limits.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Setpoint and blowdown meet specified tolerances; results are recorded and controlled."
+          },
+          "applicability": {
+            "when": [
+              "function=overpressure_protection",
+              "valve_type=relief"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-072",
+          "text": "For relief/safety valves, the setpoint adjustment mechanism shall be controlled (e.g., sealed, locked, or administratively controlled) to prevent unauthorized changes.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Setpoint is controlled by physical seals/locks and/or administrative controls with records."
+          },
+          "applicability": {
+            "when": [
+              "function=overpressure_protection",
+              "valve_type=relief"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-073",
+          "text": "The valve shall maintain the required position under flow-induced and hydraulic forces without unintended movement or self-actuation.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation demonstrates no unintended movement under bounding forces."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-074",
+          "text": "The valve shall provide position indication and/or position verification capability appropriate for its credited function and surveillance/testing needs.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Indication/verification is demonstrated and auditable during required testing."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-075",
+          "text": "For valves credited to remain in a given state during an event, the valve shall not spuriously change position due to anticipated electrical disturbances or control signal transients within the design basis.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation demonstrates no spurious actuation under bounding disturbances."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-076",
+          "text": "For manual valves credited in procedures or safety functions, required operating torque at bounding differential pressure shall be within specified human factors limits or a gear operator shall be provided.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Measured/estimated operating torque meets limits or gear operator is provided and verified."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=manual"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-077",
+          "text": "The valve shall be capable of the specified number of operations {{design_cycles}} over the service life {{service_life_years}} without loss of credited performance.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Endurance basis demonstrates capability for cycles and life; acceptance criteria are met."
+          },
+          "applicability": {
+            "when": [
+              "design_cycles>0"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-078",
+          "text": "Wear and aging effects (packing wear, seat wear, stem friction increase) shall be considered in performance margins and maintenance planning for credited functions.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Performance margins account for aging; maintenance plan addresses degradation mechanisms."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-079",
+          "text": "The valve shall support periodic exercising and surveillance testing without introducing unacceptable risk of damage or adverse system impacts.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "IST/maintenance strategy demonstrates exercise can be performed safely and repeatably."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-080",
+          "text": "Where mispositioning risk exists, the valve shall include locking, sealing, or administrative provisions to prevent inadvertent operation inconsistent with credited configuration.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Locking/sealing/procedural controls are specified and verifiable."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "6. Actuation, controls, and power (when applicable)",
+      "requirements": [
+        {
+          "id": "PLV-081",
+          "text": "Actuator sizing shall provide adequate margin to operate the valve under bounding differential pressure, temperature, friction, and load conditions, including aging effects where applicable.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Sizing calculations and/or tests demonstrate adequate operating margin for bounding conditions."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_73_Rev2"
+          ]
+        },
+        {
+          "id": "PLV-082",
+          "text": "MOV torque and/or thrust settings (including any torque bypass settings) shall be established, justified, and controlled to meet required seating and unseating margins.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Settings are documented, controlled, and verified by testing or analysis."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_73_Rev2",
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-083",
+          "text": "Limit switches, position sensors, and travel stops shall be set and controlled to ensure the valve achieves required end positions without overstressing components.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Setpoints are documented and verified; end-position requirements are met."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-084",
+          "text": "Actuator duty cycle, thermal rating, and overload protection shall be adequate for required operational sequences and ambient conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation demonstrates duty/thermal capability for required sequences."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-085",
+          "text": "Electrical power requirements for the actuator (voltage, frequency, inrush current, harmonics sensitivity) shall be compatible with the plant electrical system for all credited scenarios.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Electrical compatibility is demonstrated for credited scenarios."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-086",
+          "text": "Actuation logic shall support the required command sequences, interlocks, and permissives for credited events and operational modes, including defined responses to loss of power or control signal.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Logic and loss-of-power/control behavior match requirements and are validated."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-087",
+          "text": "Where required, the valve shall provide local manual override or alternate means of operation consistent with the design basis and maintenance strategy.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Local/alternate operation is provided and demonstrated."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-088",
+          "text": "Fail-safe behavior (fail open/close/last) shall be specified and demonstrated for loss of motive power and/or loss of control signal consistent with the valve’s credited function.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Fail-safe behavior is demonstrated and matches design basis."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-089",
+          "text": "For pneumatic actuators, instrument air supply requirements (pressure, flow, quality, filtration) shall be specified, and the design shall meet required response time under bounding supply conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Response time and operability are demonstrated for bounding supply conditions."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=AOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-090",
+          "text": "For hydraulic actuators, hydraulic supply requirements (pressure, flow, fluid type, cleanliness) and leakage control provisions shall be specified and verified.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Hydraulic performance meets requirements; leakage controls are verified."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-091",
+          "text": "Solenoid valves, pilot valves, and control accessories (if used) shall be specified as part of the valve assembly boundary and shall meet the same qualification and QA requirements as the credited valve function.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Accessories are included in qualification boundary and QA controls; evidence is documented."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=AOV|SOV|HOV",
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-092",
+          "text": "Position indication, command status, and alarm outputs shall be sufficient to support operating procedures, surveillance testing, and abnormal condition response where credited.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Required indications/alarms are implemented and verified by test."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-093",
+          "text": "Electrical and control components shall be designed/selected to withstand expected electromagnetic interference (EMI) and electrical transients consistent with the plant environment and classification.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "EMI/transient susceptibility is addressed by design and/or qualification evidence."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-094",
+          "text": "The actuator shall include features to prevent over-torque/over-thrust damage to the valve, piping, or actuator during operation and testing.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Protective features are implemented and demonstrated by test/inspection."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-095",
+          "text": "Actuation commands, feedback signals, and test points shall be accessible and maintainable (including calibration/adjustment provisions) consistent with the valve’s surveillance and maintenance strategy.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Design includes accessible test/calibration provisions consistent with procedures."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "7. Seismic and environmental qualification",
+      "requirements": [
+        {
+          "id": "PLV-096",
+          "text": "If classified as Seismic Category I (or equivalent), the valve assembly shall maintain its required safety function following the safe-shutdown earthquake (SSE) per the defined seismic design basis.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Qualification evidence demonstrates post-SSE operability and structural integrity for credited functions."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_29_Rev6",
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLV-097",
+          "text": "The seismic qualification approach (test, analysis, or experience data) shall be documented, including test spectra, input assumptions, and acceptance criteria.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Qualification approach and assumptions are documented and controlled."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLV-098",
+          "text": "The seismic qualification boundary shall include the valve, actuator, mounting hardware, supports/brackets, and accessories necessary for credited function.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Boundary is defined and matches as-installed configuration."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLV-099",
+          "text": "Seismic interaction concerns (including potential impact, falling hazards, and spatial clearances) shall be evaluated for the valve location when required by the design basis.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation documents interactions and mitigations where required."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_29_Rev6"
+          ]
+        },
+        {
+          "id": "PLV-100",
+          "text": "For safety-related actuated valves, qualification shall address operability for the credited number of operations under seismic and environmental conditions where required by the design basis.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Qualification evidence supports credited operations under required conditions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLV-101",
+          "text": "If electrical equipment is important to safety and located in a harsh environment, environmental qualification (EQ) shall be demonstrated in accordance with the applicable EQ program basis.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "EQ file exists and demonstrates compliance for credited components."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-102",
+          "text": "EQ shall address aging, radiation, temperature, humidity, chemical spray, submergence, and pressure effects as applicable to the defined accident environment profile.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "EQ evidence includes applicable stressors and bounding profiles."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "environment_profile=harsh|DBA_profile_defined"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-103",
+          "text": "Qualified life for EQ-limited components (e.g., cables, limit switches, solenoids) shall be established and tracked with defined replacement or refurbishment intervals.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Qualified life and replacement intervals are documented and tracked."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-104",
+          "text": "If packing/seals are credited to maintain operability or leak tightness during accident conditions, their qualification for the accident profile shall be demonstrated.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Qualification evidence exists for credited seals under accident conditions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-105",
+          "text": "Where required by licensing basis, combined effects of seismic and environmental conditions on operability shall be evaluated (including post-event operability).",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation or testing demonstrates operability under required combined conditions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3",
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLV-106",
+          "text": "Qualification documentation shall identify the qualified configuration, including part numbers, settings, and installation constraints, and shall be controlled under configuration management.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Qualified configuration is documented and changes are controlled."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-107",
+          "text": "Replacement parts and maintenance activities that can affect qualification (e.g., limit switch replacement, packing change, grease type) shall be controlled to preserve qualification basis.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Controls exist to ensure replacements maintain qualified configuration."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-108",
+          "text": "Periodic surveillance or maintenance tasks necessary to ensure continued qualification (e.g., re-lubrication intervals, seal replacement) shall be specified and included in maintenance planning.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Maintenance tasks and intervals are documented and incorporated into planning."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-109",
+          "text": "Post-qualification changes to valve/actuator design, settings, or accessories shall be evaluated for impact on qualification and shall trigger requalification where necessary.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Change evaluations address qualification impacts and document dispositions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-110",
+          "text": "For non-safety valves, seismic and environmental requirements shall be specified commensurate with their credited function and classification, and shall not reduce the capability of nearby safety-related equipment.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Requirements are specified and demonstrate no adverse impact on safety-related equipment."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=non_safety|risk_informed"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "8. Examination, testing, and surveillance provisions (factory + inservice)",
+      "requirements": [
+        {
+          "id": "PLV-111",
+          "text": "An acceptance test plan shall be defined that demonstrates pressure boundary integrity and functional performance against specified acceptance criteria.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Test plan includes required tests, conditions, instrumentation, and measurable acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-112",
+          "text": "Factory acceptance testing shall include pressure boundary testing (hydrostatic and/or pneumatic) with defined test pressure, hold time, and acceptance criteria.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Recorded results meet acceptance criteria with no unacceptable leakage or deformation."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLV-113",
+          "text": "Factory acceptance testing shall include seat leakage testing under defined conditions that bound credited service conditions.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Seat leakage results meet seat_leakage_limit under defined test conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control|non_return"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-114",
+          "text": "Factory acceptance testing shall include an external leakage check (packing and body joints) at pressure/temperature conditions defined by the test plan.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "External leakage meets defined acceptance limits; results are recorded."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-115",
+          "text": "Functional open/close operation shall be demonstrated during testing under representative differential pressure where practical or by justified alternative testing/analysis.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Functional operation is demonstrated for defined conditions with acceptance criteria met."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-116",
+          "text": "Stroke time shall be measured and recorded during acceptance testing under defined conditions suitable to establish a baseline for inservice testing where applicable.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Stroke time baseline is recorded and meets stroke_time_limit."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-117",
+          "text": "For MOVs, torque/thrust performance (or an equivalent measurable indicator such as motor current signature) shall be measured and recorded to establish baseline values.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Baseline torque/thrust (or equivalent) values are recorded and meet acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=MOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_73_Rev2",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-118",
+          "text": "For AOVs, actuator supply pressure, regulator settings, and response time shall be tested and recorded to establish baseline values.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Baseline pneumatic parameters are recorded and meet acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=AOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-119",
+          "text": "For control valves, flow characterization (Cv versus position) shall be tested or validated by documented evidence sufficient to support control performance requirements.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Flow characterization evidence supports specified control performance."
+          },
+          "applicability": {
+            "when": [
+              "function=flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-120",
+          "text": "For check valves, the test plan shall address the credited check valve function (reverse flow prevention) by test, analysis, or justified experience data.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Evidence demonstrates reverse flow prevention performance for credited conditions."
+          },
+          "applicability": {
+            "when": [
+              "valve_type=check"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-121",
+          "text": "For relief/safety valves, setpoint and blowdown testing shall be performed with calibrated instrumentation, and as-left settings shall be controlled.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Setpoint and blowdown meet specified tolerances; as-left settings are documented and controlled."
+          },
+          "applicability": {
+            "when": [
+              "function=overpressure_protection",
+              "valve_type=relief"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-122",
+          "text": "Non-destructive examinations (NDE) required by the code-of-record or specification shall be performed using qualified procedures and personnel, and results shall meet acceptance criteria.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "NDE records demonstrate qualified procedures/personnel and acceptable results."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLV-123",
+          "text": "Test instrumentation used for acceptance tests (pressure, flow, time, torque/thrust, electrical parameters) shall be calibrated and traceable to a controlled calibration program.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Calibration certificates and traceability are available and current."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-124",
+          "text": "A preservice baseline (as-installed or as-tested) shall be established for valves subject to inservice testing or monitoring, including key performance parameters.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Baseline parameters are documented and controlled for future comparison."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-125",
+          "text": "The valve design shall include features that enable periodic inservice stroke testing (direct or indirect) without requiring excessive plant configuration changes.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Design provides practical means to execute required stroke tests."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "actuation_type=MOV|AOV|SOV"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-126",
+          "text": "Where inservice seat leakage testing is required, the design shall include provisions (test connections, isolation capability, or equivalent) that make leakage testing feasible and repeatable.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Leakage test provisions exist and support repeatable test setup."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-127",
+          "text": "Where diagnostic monitoring is required, the design shall include provisions for data acquisition (e.g., motor current, torque/thrust, air pressure, position) without compromising safety.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Diagnostic provisions exist and are compatible with credited function."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-128",
+          "text": "Inservice testing and surveillance procedures shall be supported by the valve design, including access, illumination, identification, and test point availability.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Design supports execution of procedures safely and repeatably."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLV-129",
+          "text": "Acceptance test records, including as-tested configuration and settings, shall be retained as QA records and retrievable for audits and plant life-cycle needs.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Records are complete, controlled, and retrievable per retention requirements."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_RG_1_28_Rev6"
+          ]
+        },
+        {
+          "id": "PLV-130",
+          "text": "Test anomalies, failures, and nonconformances shall be dispositioned under the corrective action/nonconformance process, including retest when required to demonstrate compliance.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Nonconformance records include disposition and retest evidence where required."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "9. Quality assurance, procurement, records, and configuration control",
+      "requirements": [
+        {
+          "id": "PLV-131",
+          "text": "Procurement documents shall specify applicable technical, QA, inspection, test, documentation, and records requirements for the valve and critical subcomponents.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Procurement package includes required flowdowns and acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-132",
+          "text": "Suppliers providing safety-related valves or services shall be qualified and subject to audits, surveillances, or evaluations consistent with the QA program.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "audit"
+            ],
+            "acceptance": "Supplier qualification and oversight records demonstrate compliance with QA program."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_RG_1_28_Rev6"
+          ]
+        },
+        {
+          "id": "PLV-133",
+          "text": "If commercial-grade dedication is used, critical characteristics and dedication methods (test, inspection, analysis) shall be defined and executed to accept the item for safety-related use.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Dedication records demonstrate verification of critical characteristics to acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-134",
+          "text": "Nonconformances affecting valve requirements or qualification basis shall be documented, evaluated for operability/impact, and dispositioned per QA procedures.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Nonconformance disposition includes impact evaluation and acceptance rationale."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-135",
+          "text": "Records sufficient to demonstrate design basis, fabrication history, inspection/test results, and installed configuration shall be retained and retrievable for the required retention period.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Records are complete, controlled, and retrievable per retention requirements."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_RG_1_28_Rev6"
+          ]
+        },
+        {
+          "id": "PLV-136",
+          "text": "Unique identification and traceability shall be maintained from procurement through installation, including traceability of pressure boundary materials and critical parts.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Traceability is demonstrated by unique IDs and records linking to critical parts/materials."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-137",
+          "text": "Configuration items affecting credited safety function (e.g., setpoints, torque/thrust settings, switch settings, fail-safe configuration) shall be under configuration control.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Configuration items are identified, controlled, and changes are evaluated/approved."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-138",
+          "text": "Document control shall ensure only current, approved revisions of drawings, specifications, procedures, and instructions are used for fabrication, installation, and testing.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "audit"
+            ],
+            "acceptance": "Document control audits show current revisions in use and obsolete versions controlled."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-139",
+          "text": "If the actuator includes embedded software/firmware that can affect credited function, software/firmware configuration and verification shall be controlled commensurate with safety classification.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Software/firmware version control and verification evidence are documented and controlled."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "actuation_type=MOV|AOV|SOV|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-140",
+          "text": "Final acceptance of the installed valve shall include verification that the installed configuration matches the approved design basis, including settings, orientation, and required documentation.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Installation acceptance checklist demonstrates compliance with approved configuration and requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "10. Maintainability, accessibility, and operational considerations",
+      "requirements": [
+        {
+          "id": "PLV-141",
+          "text": "The valve installation shall provide adequate physical access for required surveillance, maintenance, inspection, packing adjustment, lubrication, and repair activities.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Access provisions meet defined maintenance/inspection needs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-142",
+          "text": "The valve design and installation shall support safe isolation, lockout/tagout, and restoration consistent with plant maintenance practices and credited configurations.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Isolation and lockout/tagout provisions are documented and feasible."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-143",
+          "text": "Valve orientation and actuator placement shall be specified to avoid installation conditions that could impair function (e.g., trapped gas/air, unfavorable gravity effects for check valves) where applicable.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Installation orientation requirements are documented and verified."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-144",
+          "text": "Valve opening/closing characteristics (including closure time and damping features if used) shall be compatible with system dynamic constraints such as water hammer and piping loads.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "System dynamics evaluation demonstrates acceptable loads and operation."
+          },
+          "applicability": {
+            "when": [
+              "function=isolation|flow_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLV-145",
+          "text": "Design features and procedures shall minimize maintenance-induced foreign material intrusion (e.g., protective caps, cleanliness controls, controlled disassembly).",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Provisions and procedures are documented and support cleanliness controls."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-146",
+          "text": "A recommended spare parts list and preventive maintenance guidance shall be provided commensurate with safety classification and expected degradation mechanisms.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Spare parts and maintenance guidance are provided and reviewed for adequacy."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-147",
+          "text": "The valve shall include clear and durable local labeling for valve identification, flow direction (if applicable), and local open/close indications consistent with procedures.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Labeling is present, legible, durable, and consistent with procedures/drawings."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-148",
+          "text": "For manual operation interfaces (handwheels/levers/gear operators), required forces/torques and accessibility shall be compatible with operational needs, including during abnormal conditions when credited.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Forces/torques and accessibility meet specified limits and are verified."
+          },
+          "applicability": {
+            "when": [
+              "actuation_type=manual|HOV"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-149",
+          "text": "Where practicable, the design shall support replacement of wear parts (packing, seats, seals) with minimal impact to adjacent safety-related equipment and without violating cleanliness controls.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Maintainability approach is documented and supports planned tasks."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLV-150",
+          "text": "Operational limits and abnormal indications (e.g., rising actuator torque/current, increased leakage, slow stroke time) shall be defined to support condition monitoring and corrective action.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Operational limits and diagnostic indicators are documented and integrated into monitoring/maintenance processes."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    }
+  ]
+}

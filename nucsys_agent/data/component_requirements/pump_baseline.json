@@ -1,0 +1,4672 @@
+{
+  "template_id": "nuclear_facility_pump_baseline_v0.1_220reqs",
+  "created_utc": "2026-02-16T20:00:58Z",
+  "scope": {
+    "description": "Baseline engineering requirements library (superset) for pumps used in nuclear facilities (safety-related and balance-of-plant). Applicability is filtered by a PumpProfile and project licensing basis.",
+    "licensing_basis_assumption": "US NRC-style framework (10 CFR Part 50/52) with code-of-record per 10 CFR 50.55a where applicable.",
+    "notes": [
+      "This library is intentionally a superset. Not every requirement applies to every pump (centrifugal, vertical turbine, positive displacement, canned-motor, submersible).",
+      "Clause-level traceability (e.g., exact ASME/IEEE/NRC clause IDs) is expected to be added once the standards database is ingested and indexed.",
+      "Units shown in parameters are typical; project may redefine units/fields via profile normalization."
+    ]
+  },
+  "standards_basis_refs": [
+    {
+      "ref_id": "CFR_10_50_55a",
+      "title": "10 CFR 50.55a Codes and standards"
+    },
+    {
+      "ref_id": "CFR_10_50_AppB",
+      "title": "10 CFR Part 50 Appendix B Quality Assurance Criteria for Nuclear Power Plants and Fuel Reprocessing Plants"
+    },
+    {
+      "ref_id": "CFR_10_50_AppA",
+      "title": "10 CFR Part 50 Appendix A General Design Criteria for Nuclear Power Plants (as applicable to licensing basis)"
+    },
+    {
+      "ref_id": "CFR_10_50_49",
+      "title": "10 CFR 50.49 Environmental qualification of electric equipment important to safety"
+    },
+    {
+      "ref_id": "NRC_RG_1_100_Rev3",
+      "title": "Regulatory Guide 1.100 Rev. 3 Seismic Qualification of Electric and Mechanical Equipment"
+    },
+    {
+      "ref_id": "NRC_RG_1_73_Rev2",
+      "title": "Regulatory Guide 1.73 Rev. 2 Qualification Tests of Safety-Related Actuators"
+    },
+    {
+      "ref_id": "NRC_NUREG_1482_R3",
+      "title": "NUREG-1482 Rev. 3 Guidelines for Inservice Testing (IST) at Nuclear Power Plants"
+    },
+    {
+      "ref_id": "NRC_RG_1_28_Rev6",
+      "title": "Regulatory Guide 1.28 Rev. 6 Quality Assurance Program Criteria (endorses ASME NQA-1 editions with positions)"
+    },
+    {
+      "ref_id": "NRC_RG_1_29_Rev6",
+      "title": "Regulatory Guide 1.29 Rev. 6 Seismic Design Classification"
+    },
+    {
+      "ref_id": "ASME_OM_Code",
+      "title": "ASME OM Code \u2013 Operation and Maintenance of Nuclear Power Plants (IST of pumps/valves)"
+    },
+    {
+      "ref_id": "ASME_QME_1",
+      "title": "ASME QME-1 \u2013 Qualification of Active Mechanical Equipment Used in Nuclear Power Plants"
+    },
+    {
+      "ref_id": "IEEE_323",
+      "title": "IEEE Std 323 \u2013 Qualifying Class 1E Equipment for Nuclear Power Generating Stations"
+    },
+    {
+      "ref_id": "IEEE_344",
+      "title": "IEEE Std 344 \u2013 Seismic Qualification of Equipment for Nuclear Power Generating Stations"
+    },
+    {
+      "ref_id": "HI_Standards",
+      "title": "Hydraulic Institute (HI) standards for rotodynamic pump performance, test, and acceptance tolerances (as applicable)"
+    },
+    {
+      "ref_id": "API_610",
+      "title": "API 610 \u2013 Centrifugal Pumps for Petroleum, Petrochemical and Natural Gas Industries (use as applicable where not conflicting with code-of-record)"
+    }
+  ],
+  "parameters": {
+    "pump_tag": {
+      "type": "string",
+      "example": "RCS-PMP-001"
+    },
+    "pump_type": {
+      "type": "string",
+      "example": "centrifugal|vertical_turbine|positive_displacement|canned_motor|submersible"
+    },
+    "function": {
+      "type": "string",
+      "example": "reactor_coolant|safety_injection|residual_heat_removal|feedwater|service_water|chemical_volume_control"
+    },
+    "driver_type": {
+      "type": "string",
+      "example": "electric_motor|steam_turbine|diesel|hydraulic"
+    },
+    "coupling_type": {
+      "type": "string",
+      "example": "direct|flexible|magnetic"
+    },
+    "code_class": {
+      "type": "string",
+      "example": "ASME_III_Class_1|2|3|NonCode"
+    },
+    "safety_classification": {
+      "type": "string",
+      "example": "safety_related|non_safety|risk_informed"
+    },
+    "seismic_category": {
+      "type": "string",
+      "example": "Seismic_Category_I|II|NonSeismic"
+    },
+    "qa_level": {
+      "type": "string",
+      "example": "NQA-1|ISO_9001|project_defined"
+    },
+    "design_pressure": {
+      "type": "number",
+      "units": "MPa"
+    },
+    "design_temperature": {
+      "type": "number",
+      "units": "C"
+    },
+    "suction_pressure_min": {
+      "type": "number",
+      "units": "MPa"
+    },
+    "discharge_pressure_max": {
+      "type": "number",
+      "units": "MPa"
+    },
+    "design_flowrate": {
+      "type": "number",
+      "units": "kg/s"
+    },
+    "flowrate_min_continuous": {
+      "type": "number",
+      "units": "kg/s"
+    },
+    "flowrate_max": {
+      "type": "number",
+      "units": "kg/s"
+    },
+    "design_head": {
+      "type": "number",
+      "units": "m"
+    },
+    "shutoff_head_max": {
+      "type": "number",
+      "units": "m"
+    },
+    "npshr": {
+      "type": "number",
+      "units": "m"
+    },
+    "npsha_min": {
+      "type": "number",
+      "units": "m"
+    },
+    "min_npsh_margin": {
+      "type": "number",
+      "units": "m"
+    },
+    "speed_rpm": {
+      "type": "number",
+      "units": "rpm"
+    },
+    "rated_power": {
+      "type": "number",
+      "units": "kW"
+    },
+    "motor_voltage": {
+      "type": "string",
+      "example": "480VAC|4.16kV|6.9kV"
+    },
+    "efficiency_min": {
+      "type": "number",
+      "units": "percent"
+    },
+    "vibration_limit": {
+      "type": "string",
+      "example": "TBD_per_spec_or_standard"
+    },
+    "bearing_temperature_limit": {
+      "type": "number",
+      "units": "C"
+    },
+    "seal_leakage_limit": {
+      "type": "string",
+      "example": "TBD_by_safety_analysis_or_spec"
+    },
+    "start_time_limit": {
+      "type": "number",
+      "units": "s"
+    },
+    "mission_time": {
+      "type": "number",
+      "units": "h"
+    },
+    "start_stop_cycles": {
+      "type": "number",
+      "units": "cycles"
+    },
+    "service_life_years": {
+      "type": "number",
+      "units": "years"
+    },
+    "design_cycles": {
+      "type": "number",
+      "units": "cycles"
+    },
+    "fluid_density": {
+      "type": "number",
+      "units": "kg/m3"
+    },
+    "fluid_viscosity": {
+      "type": "number",
+      "units": "cP"
+    },
+    "solids_content_limit": {
+      "type": "number",
+      "units": "ppm"
+    },
+    "boron_concentration_max": {
+      "type": "number",
+      "units": "ppm"
+    },
+    "seal_type": {
+      "type": "string",
+      "example": "mechanical|packed|canned|gas|none"
+    },
+    "lubrication_type": {
+      "type": "string",
+      "example": "oil|grease|water_lubricated|none"
+    },
+    "environment_profile": {
+      "type": "string",
+      "example": "mild|harsh|DBA_profile_defined"
+    },
+    "coastdown_time_min": {
+      "type": "number",
+      "units": "s"
+    },
+    "runout_flow_limit": {
+      "type": "string",
+      "example": "TBD_by_spec"
+    },
+    "minimum_flow_provision": {
+      "type": "string",
+      "example": "recirculation_line|auto_min_flow_valve|orifice|none"
+    }
+  },
+  "requirement_sets": [
+    {
+      "category": "1. Programmatic, classification, and design basis",
+      "requirements": [
+        {
+          "id": "PLP-001",
+          "text": "The project shall define and record the licensing basis and code-of-record for the pump, including applicable regulations, incorporated codes/standards, and edition/addenda where required.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Documented licensing basis and code-of-record exists and is under configuration control."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLP-002",
+          "text": "The pump\u2019s credited function(s), operating mode(s), and success criteria (flow/head/mission time) for each analyzed event shall be explicitly defined.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Credited functions and measurable success criteria are documented and traceable to the design basis."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-003",
+          "text": "The pump shall be classified (code class, safety classification, seismic category, QA level) using the project\u2019s approved classification methodology.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Classification is documented, reviewed, approved, and traceable to project methodology."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_29_Rev6",
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-004",
+          "text": "Design inputs for normal, transient, and accident conditions applicable to the pump shall be defined, including fluid properties, pressure, temperature, flow, head, NPSH, and environmental conditions.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled design-input set exists and is referenced by calculations/specifications."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-005",
+          "text": "The project shall identify the bounding scenarios that govern pump operability and integrity, including required start time {{start_time_limit}}, run duration {{mission_time}}, and start/stop cycles {{start_stop_cycles}}.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Bounding scenarios and governing cases are documented and linked to requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-006",
+          "text": "Interfaces to piping (suction/discharge), supports/foundation, electrical power, control signals, and instrumentation shall be defined in controlled interface documents or drawings.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Interface definitions exist, are consistent across disciplines, and are under document control."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-007",
+          "text": "System-level constraints affecting the pump (e.g., allowable suction transients, water hammer limits, minimum-flow requirements, NPSH margin, debris loadings) shall be captured as design inputs.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Constraints are documented and referenced by the pump specification and analyses."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-008",
+          "text": "The project shall define and control credited setpoints/limits for the pump (e.g., minimum flow, vibration limit {{vibration_limit}}, bearing temperature limit {{bearing_temperature_limit}}, seal leakage limit {{seal_leakage_limit}}, trip/alarm setpoints).",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Setpoints/limits are documented with justification and are under configuration control."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-009",
+          "text": "A verification plan shall be established that maps each pump requirement to a verification method (test, analysis, inspection, or demonstration) and acceptance criteria.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Requirements-to-verification mapping exists and includes measurable acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-010",
+          "text": "Assumptions, TBD/TBR items, and required engineering inputs for the pump shall be tracked with defined owners and closure criteria.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Assumption/TBD log exists and closure criteria are defined and managed."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-011",
+          "text": "Design reviews for the pump specification, calculations, and design outputs shall be performed and documented commensurate with the pump\u2019s safety classification.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Review records demonstrate independent review and approval per QA procedures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-012",
+          "text": "If commercial-grade items or services are used for safety-related pump applications, the project shall define the dedication strategy and critical characteristics for acceptance.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Dedication plan includes critical characteristics, methods, and acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-013",
+          "text": "A requirements traceability matrix shall be maintained that links pump requirements to design basis sources and verification evidence.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Traceability exists from requirement to source and to verification evidence."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-014",
+          "text": "The pump specification shall be placed under configuration control before procurement/fabrication begins, and released revisions shall be uniquely identified.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled revision exists; release and revision history are auditable."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-015",
+          "text": "Changes to pump requirements, design inputs, performance curves, or qualification basis shall be evaluated for impact and controlled through the project change control process.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Change evaluations are documented and demonstrate impact assessment and approvals."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-016",
+          "text": "If the pump is credited in safety analyses, the project shall define required redundancy, train alignment, and single-failure considerations for the pump and its support systems (seal injection, cooling, lube oil, power).",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Design basis documents identify redundancy and single-failure assumptions; interfaces and dependencies are captured."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-017",
+          "text": "The project shall define allowable operating regions (AOR) and prohibited regions (e.g., low-flow recirculation, runout, cavitation) for the pump consistent with safety and reliability objectives.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "AOR/prohibited regions are documented and reflected in control/protection setpoints and procedures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-018",
+          "text": "The project shall define acceptance tolerances for pump performance (flow/head/efficiency) at test conditions and the method for correcting results to reference conditions.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Performance acceptance criteria and correction methodology are specified and controlled."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-019",
+          "text": "For pumps required to operate during or after a design-basis event, the project shall define mission reliability expectations and monitoring strategy (e.g., condition monitoring, trending, acceptance criteria drift limits).",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Monitoring strategy and drift limits are documented and incorporated into the maintenance/IST program."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLP-020",
+          "text": "The project shall perform and document a pump-specific hazards/operability review (e.g., overpressure, loss of suction, dead-head, reverse rotation) and flow resulting protective features or procedural controls into requirements.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Hazards/operability review exists and resulting controls are traceable to requirements and design outputs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "2. Pressure boundary integrity, structural design, and installation loads",
+      "requirements": [
+        {
+          "id": "PLP-021",
+          "text": "The pump pressure boundary (casing, covers, nozzles, penetrations) shall be designed, fabricated, examined, and tested in accordance with the applicable code class and code-of-record requirements.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis"
+            ],
+            "acceptance": "Design and manufacturing records demonstrate code compliance to the defined code-of-record."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLP-022",
+          "text": "The pump shall be rated for the specified design pressure {{design_pressure}} and design temperature {{design_temperature}}, including applicable transients and design margins defined by the design basis.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Ratings and analyses demonstrate capability at design conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-023",
+          "text": "The pump assembly shall withstand combined loads from pressure, thermal gradients, piping reactions, rotor hydraulic loads, and operational loads without loss of pressure boundary integrity.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Structural evaluation demonstrates allowable limits are met for governing load combinations."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-024",
+          "text": "If classified as Seismic Category I (or equivalent), the pump pressure boundary and support structure shall maintain integrity for the seismic load combinations defined by the seismic design basis.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Seismic evaluation/qualification demonstrates integrity for credited seismic conditions."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_29_Rev6",
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-025",
+          "text": "The design shall address fatigue and cyclic service consistent with the specified design cycles {{design_cycles}} and start/stop cycles {{start_stop_cycles}}.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Fatigue evaluation meets acceptance criteria for the applicable code-of-record/design basis."
+          },
+          "applicability": {
+            "when": [
+              "design_cycles>0"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-026",
+          "text": "Thermal transients, differential expansion, and alignment changes shall be evaluated to prevent binding, rubs, loss of operability, or unacceptable stresses.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Thermal evaluation demonstrates operability and acceptable stress limits for governing transients."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-027",
+          "text": "Bolted joints, gaskets, and casing parting lines shall be designed to maintain leak-tightness under all applicable load combinations, including thermal and seismic loads as applicable.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Joint design and assembly controls demonstrate leak-tightness capability."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-028",
+          "text": "Shaft/seal housing penetrations shall be designed to prevent pressure boundary compromise under design pressure and dynamic loads, including credible shaft movement and thrust loads.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Design features and analyses demonstrate integrity of penetrations and seal housings."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-029",
+          "text": "Pressure boundary wall thickness shall include allowances appropriate for manufacturing tolerances and anticipated degradation mechanisms (corrosion/erosion) for the specified service life {{service_life_years}}.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Wall thickness basis is documented and meets defined margins for service life."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-030",
+          "text": "Suction and discharge nozzle/end-connection configurations shall be compatible with the piping design basis and shall maintain required weld preparations and flange facing requirements.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Interface dimensions and preparation requirements are specified and verified on drawings."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-031",
+          "text": "Allowable piping reaction loads at the pump nozzles shall be specified and verified to be compatible with piping stress analyses and pump alignment requirements.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Allowables are documented; calculated piping loads are within allowables."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-032",
+          "text": "Support, baseplate, anchor, and restraint requirements for the pump and driver assembly shall be specified, including any installation-specific bracing required.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Support/anchor requirements are documented and consistent with structural/piping design."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-033",
+          "text": "The pump shall include lifting/handling features (lugs, eyebolts, rigging points) designed for safe handling of the pump and major subassemblies.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Lifting features are rated, documented, and verified by inspection."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-034",
+          "text": "Non-destructive examination (NDE) requirements for pressure boundary materials and welds shall be specified and performed to acceptance criteria commensurate with code class.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "NDE procedures, personnel qualifications, and results meet specified acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLP-035",
+          "text": "Pressure boundary testing (hydrostatic and/or pneumatic) shall be performed with defined test pressure, hold time, and acceptance criteria.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Recorded test results meet acceptance criteria with no unacceptable leakage or deformation."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLP-036",
+          "text": "The pump casing shall withstand the maximum internal pressure associated with shutoff/head rise and system transients without structural damage or permanent deformation that impairs function.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation demonstrates structural integrity at governing transient and shutoff conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-037",
+          "text": "For positive displacement pumps, overpressure protection (integral relief valve or system relief device) shall be provided and sized to prevent exceeding the pump casing design pressure.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Overpressure protection is specified, sized, and demonstrated to limit pressure below design pressure."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=positive_displacement"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-038",
+          "text": "Each pump shall have durable nameplate/marking including unique identifier {{pump_tag}}, rated speed {{speed_rpm}}, flow/head ratings, materials (as required), and manufacturer information to support traceability.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Marking meets specification and supports unique identification and traceability."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-039",
+          "text": "For pumps installed in containment or other controlled areas, leakage collection and drainage provisions shall be defined to prevent unmonitored releases and support detection of abnormal leakage.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Drain/collection provisions are specified and consistent with plant leak monitoring requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-040",
+          "text": "The as-installed pump alignment tolerances (shaft coupling alignment, nozzle alignment) and methods for achieving/maintaining them shall be specified.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Alignment tolerances and installation methods are documented and verifiable."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-041",
+          "text": "The pump design shall prevent rotor-to-stator contact under normal and design-basis loads, including thermal growth, hydraulic forces, and seismic loads as applicable.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Clearance and deflection evaluations demonstrate no unacceptable rubs for governing cases."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-042",
+          "text": "If a flywheel or high-inertia element is credited (e.g., coastdown), its structural integrity and attachment to the shaft shall be evaluated for overspeed and transient loads.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Flywheel integrity/attachment evaluation meets acceptance criteria and is documented."
+          },
+          "applicability": {
+            "when": [
+              "coastdown_time_min>0"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-043",
+          "text": "Coupling and rotating-element guards shall be provided where personnel exposure exists, and shall meet plant safety and maintenance access requirements.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Guards are present, meet design requirements, and do not impede required maintenance tasks."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-044",
+          "text": "Foundation and support natural frequencies shall be evaluated to avoid resonance with running speed, blade-pass frequencies, and dominant hydraulic excitation frequencies.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Dynamic evaluation documents separation margins and mitigations where needed."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-045",
+          "text": "For cast pressure-boundary components, casting quality requirements (material grade, heat treatment, volumetric examination as required) shall be specified and verified to prevent unacceptable defects.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis"
+            ],
+            "acceptance": "Material certifications and examination records demonstrate casting quality meets specification."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a",
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "3. Hydraulic performance and system integration",
+      "requirements": [
+        {
+          "id": "PLP-046",
+          "text": "The pump shall meet system flow and head requirements at the defined design point {{design_flowrate}} and {{design_head}} under bounding fluid properties and operating conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Performance evidence demonstrates required flow/head at the design point under bounding conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-047",
+          "text": "The pump shall meet required performance across the specified operating envelope, including minimum continuous flow {{flowrate_min_continuous}} to maximum flow {{flowrate_max}}, without exceeding allowable vibration or temperature limits.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Operating envelope is demonstrated with acceptance criteria met for performance and limits."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-048",
+          "text": "Pump performance curves (head-flow, efficiency, power, NPSHr) shall be provided for the specified speed {{speed_rpm}} and impeller configuration, including tolerances and test conditions.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled performance curves and tolerances are provided and traceable to testing/analysis."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-049",
+          "text": "The pump shall have sufficient NPSH margin such that NPSHa >= NPSHr + {{min_npsh_margin}} for all credited operating scenarios, including transients and accident conditions where applicable.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "NPSH evaluation demonstrates required margin for all credited scenarios."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA",
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-050",
+          "text": "The suction-side design and operating limits shall prevent unacceptable cavitation, flashing, or two-phase instabilities that could impair credited function.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation identifies cavitation/instability risk and documents mitigations or operating limits."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-051",
+          "text": "For pumps expected to experience elevated dissolved gas, voiding, or two-phase inlet conditions, the design basis shall define acceptance criteria and the pump capability shall be evaluated accordingly.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Two-phase/gas ingestion evaluation is documented with acceptance criteria and conclusions."
+          },
+          "applicability": {
+            "when": [
+              "function=reactor_coolant|residual_heat_removal|safety_injection"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-052",
+          "text": "Minimum flow requirements shall be defined and the design shall include provisions to prevent operation below minimum flow (e.g., {{minimum_flow_provision}}) where required.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Minimum flow provisions are specified and verified to prevent low-flow damage during credited operation."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-053",
+          "text": "Operation at shutoff/head rise conditions shall be evaluated to ensure casing pressure, driver power/torque, and thermal rise remain within allowable limits for the duration permitted by procedures.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evaluation defines allowable shutoff duration and demonstrates limits are not exceeded."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-054",
+          "text": "Operation at runout (high-flow, low-head) conditions shall be evaluated and limited such that the pump does not exceed {{runout_flow_limit}} and driver and hydraulic limits are not exceeded.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Runout evaluation defines allowable operating limit and demonstrates compliance by design and/or controls."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-055",
+          "text": "If multiple pumps operate in parallel or series, system interaction (sharing stability, recirculation, reverse flow) shall be evaluated and operating limits and controls shall be defined.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Interaction evaluation documents stable operating region and required controls/interlocks."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-056",
+          "text": "Suction piping configuration requirements (minimum straight run, allowable elbows/tees, strainer requirements, vortex avoidance) shall be specified to ensure acceptable inlet conditions.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Piping configuration requirements are documented and verified in design drawings/specs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-057",
+          "text": "The pump shall be capable of starting and achieving credited flow within {{start_time_limit}} seconds under bounding suction pressure {{suction_pressure_min}}, discharge pressure, and power conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Start performance is demonstrated to meet start time and flow requirements for bounding conditions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-058",
+          "text": "For pumps with significant coastdown credit (e.g., reactor coolant pumps), coastdown characteristics shall meet or exceed {{coastdown_time_min}} seconds to support system thermal-hydraulic design basis.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Coastdown testing/analysis demonstrates required coastdown time for credited conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=reactor_coolant"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-059",
+          "text": "Hydraulic axial and radial loads across the operating envelope shall be evaluated and incorporated into bearing/seal/thrust design margins.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Hydraulic load evaluation is documented and design margins are demonstrated."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-060",
+          "text": "The pump shall tolerate specified suction pressure transients and rapid flow changes without loss of prime, air binding, or damage that impairs credited function.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Transient evaluation or testing demonstrates acceptable response and preserved operability."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-061",
+          "text": "The design shall address reverse rotation/backspin following trip or flow reversal; anti-reverse devices or procedural controls shall be provided when needed to prevent damage or loss of function.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Reverse rotation evaluation identifies need and verifies protective features/controls are implemented."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-062",
+          "text": "For pumps credited to prevent reverse flow (e.g., in absence of a check valve), the pump shall meet defined non-return performance criteria.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evidence demonstrates reverse flow prevention meets defined criteria for credited conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=safety_injection|residual_heat_removal"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-063",
+          "text": "Pump heat addition and fluid temperature rise at minimum flow and shutdown cooling conditions shall be evaluated to prevent exceeding system temperature limits.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Thermal evaluation demonstrates temperature rise remains within limits for credited scenarios."
+          },
+          "applicability": {
+            "when": [
+              "function=residual_heat_removal|service_water|chemical_volume_control"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-064",
+          "text": "For emergency core cooling and safety injection pumps, the pump shall deliver required flow at the required discharge pressure for the full mission time {{mission_time}} under bounding accident conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Performance evidence supports mission flow/pressure for the required mission time and conditions."
+          },
+          "applicability": {
+            "when": [
+              "function=safety_injection"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-065",
+          "text": "For service water, essential cooling, or heat sink pumps, performance shall be evaluated for degraded source water conditions (temperature, biofouling, debris) and required margins shall be specified.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Degraded water evaluation documents assumptions, margins, and any required protective features."
+          },
+          "applicability": {
+            "when": [
+              "function=service_water"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-066",
+          "text": "For pumps subject to debris ingestion (e.g., sump or strainers), debris limits and strainer/filtration requirements shall be specified and the pump shall be evaluated for tolerance to the expected debris load.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Debris tolerance/filtration requirements are documented and verified; credited performance is maintained."
+          },
+          "applicability": {
+            "when": [
+              "function=residual_heat_removal|service_water"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-067",
+          "text": "Net positive suction head evaluations shall account for suction-side pressure losses, elevation, vapor pressure at temperature, and transient effects; calculation inputs shall be traceable to plant/system models.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "NPSH calculations show traceable inputs and meet margin requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-068",
+          "text": "Where hydraulic pulsations or pressure ripple could affect system performance or instrumentation, pulsation characteristics shall be evaluated and mitigated as necessary.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Pulsation evaluation documents frequencies/amplitudes and mitigations if needed."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=positive_displacement"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-069",
+          "text": "For positive displacement pumps, flow accuracy and pulsation dampening requirements shall be specified if the pump supports control functions (e.g., charging, feed-and-bleed) and verified by testing.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Testing demonstrates required flow accuracy and pulsation limits for control needs."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=positive_displacement"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-070",
+          "text": "The pump shall be designed to avoid unstable hydraulic operating regions (surge/recirculation/rotating stall) within the credited operating envelope, and any restricted regions shall be defined.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Stable operating envelope is documented; restricted regions are identified and controlled."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|vertical_turbine|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-071",
+          "text": "For vertical turbine or deep-well pumps, submergence, downthrust, column stiffness, and bowl-to-column interface loads shall be evaluated to prevent loss of function across the operating envelope.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Vertical pump evaluation demonstrates adequate submergence and structural margins for credited conditions."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=vertical_turbine"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-072",
+          "text": "For submersible pumps, motor cooling, seal integrity, and allowable submergence duration shall be specified and evaluated for the expected environment profile.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Evidence demonstrates submersible operation meets environmental and mission requirements."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=submersible"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-073",
+          "text": "Hydraulic performance calculations and test results shall include correction for viscosity/density effects when fluid properties differ from water reference conditions.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Corrections are documented and consistent with applicable test standards."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-074",
+          "text": "The pump shall be protected against operation without adequate suction (loss of prime) by design features and/or controls appropriate to the credited function.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Protection features/controls are implemented and verified to prevent damaging loss-of-suction operation."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-075",
+          "text": "For pumps that can be damaged by rapid valve closure or opening (including check valve slam), system hydraulic transients shall be evaluated and requirements for valve stroking, dampers, or bypasses shall be specified.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Transient evaluation identifies limits and required mitigations; requirements are traceable to design outputs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "4. Rotordynamics, vibration, and dynamic response",
+      "requirements": [
+        {
+          "id": "PLP-076",
+          "text": "A rotordynamic analysis shall be performed (or equivalent validated experience data provided) to demonstrate acceptable rotor stability and separation margin between operating speed {{speed_rpm}} and critical speeds.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Rotordynamic basis demonstrates acceptable critical speed separation margins and stability."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|vertical_turbine|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-077",
+          "text": "Torsional vibration considerations (including driver, coupling, and VFD effects if used) shall be evaluated to prevent damaging resonances and fatigue.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Torsional evaluation identifies resonances and demonstrates acceptable margins or mitigations."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-078",
+          "text": "Vibration acceptance criteria {{vibration_limit}} shall be specified for the pump, driver, and base at steady-state and transient conditions.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Vibration criteria are documented, measurable, and traceable to standards or engineering justification."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-079",
+          "text": "The pump shall meet vibration limits during performance testing at rated conditions and within the operating envelope.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Measured vibration is within specified limits for defined test conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-080",
+          "text": "Vibration and dynamic response evaluations shall include hydraulic excitation sources (e.g., vane pass, recirculation), and shall demonstrate no unacceptable resonance with structural modes.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation documents excitation frequencies and demonstrates acceptable separation or mitigations."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-081",
+          "text": "If the pump is Seismic Category I, the combined dynamic behavior of the pump, base, anchors, and attached piping shall be evaluated to ensure post-SSE operability is maintained.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Seismic dynamic evaluation/qualification demonstrates post-SSE operability with defined boundary conditions."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3",
+            "IEEE_344"
+          ]
+        },
+        {
+          "id": "PLP-082",
+          "text": "Balancing requirements for the rotating assembly (shop and field balance) shall be specified, including balance grade, correction planes, and acceptance criteria.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Balancing specification is documented and balance records meet acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|vertical_turbine|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-083",
+          "text": "The design shall include provisions for maintaining dynamic balance after maintenance actions that can affect balance (impeller replacement/trim, rotor repairs), including required rebalancing steps.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Maintenance instructions and acceptance criteria for rebalancing are documented."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-084",
+          "text": "Shaft alignment tolerances and allowable misalignment under thermal growth and piping loads shall be established and incorporated into installation and operating requirements.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Alignment analysis/tolerances are documented and reflected in installation procedures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-085",
+          "text": "For pumps with long vertical shafts, lateral deflection, whirling, and critical speed behavior shall be evaluated for the full operating range and bowl submergence conditions.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Vertical shaft evaluation demonstrates acceptable lateral stability and separation margins."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=vertical_turbine"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-086",
+          "text": "The pump shall include (or interface with) condition monitoring provisions appropriate to classification, such as vibration sensors, bearing temperature sensors, or motor current signature monitoring.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Monitoring provisions are defined, accessible, and support required data acquisition."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-087",
+          "text": "Transient vibration during start, stop, and rapid speed changes shall be evaluated/validated to ensure limits are not exceeded for the credited number of cycles.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Start/stop transient evaluation demonstrates vibration limits are met for required cycles."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-088",
+          "text": "If hydraulic instabilities are possible near minimum flow, the design shall include features or controls to prevent operation in damaging regions (e.g., anti-surge logic, minimum flow bypass).",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Controls/features prevent damaging operation and are verified by test/inspection."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|vertical_turbine|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-089",
+          "text": "Acoustic noise limits and mitigation measures (if required by plant criteria) shall be specified and verified where personnel exposure or equipment interference is a concern.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Noise evaluation/testing demonstrates compliance with specified limits where applicable."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-090",
+          "text": "Potential for flow-induced vibration in connected piping driven by pump pulsations or recirculation shall be evaluated, and design requirements shall be specified to mitigate unacceptable vibration.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation documents risk and required mitigations; mitigations are traceable to design outputs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "5. Bearings, lubrication, shaft sealing, and leakage control",
+      "requirements": [
+        {
+          "id": "PLP-091",
+          "text": "Bearing type selection (rolling element, hydrodynamic, water-lubricated) shall be specified and justified for the operating conditions, loads, and environment.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Bearing selection rationale demonstrates suitability for loads, speed, temperature, and environment."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-092",
+          "text": "Bearings shall be sized to provide life and reliability commensurate with the mission requirements and service life {{service_life_years}}, including start/stop cycles {{start_stop_cycles}}.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Bearing life evaluation demonstrates required life and margins for mission duty."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-093",
+          "text": "Thrust bearing capacity shall exceed the maximum predicted axial thrust across the operating envelope, including transient conditions and degraded clearances.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Axial thrust evaluation demonstrates adequate thrust bearing margin for governing cases."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|vertical_turbine|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-094",
+          "text": "Bearing temperature limits {{bearing_temperature_limit}} shall be specified and verified during testing; monitoring and alarms/trips shall be provided as required by classification.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Testing demonstrates bearing temperatures remain within limits; monitoring is implemented per requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-095",
+          "text": "Lubrication requirements {{lubrication_type}} (oil grade, viscosity, compatibility, change intervals) shall be specified, including any filtration, cooling, or conditioning systems.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Lubrication specification is documented and consistent with operating environment and reliability needs."
+          },
+          "applicability": {
+            "when": [
+              "lubrication_type=oil|grease"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-096",
+          "text": "For oil-lubricated systems, oil quality control (cleanliness, water content, particulate) and filtration requirements shall be specified and verifiable.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Oil system includes specified controls; test/inspection records demonstrate compliance."
+          },
+          "applicability": {
+            "when": [
+              "lubrication_type=oil"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-097",
+          "text": "Lubrication systems and reservoirs shall be designed to prevent leakage or fire hazards consistent with plant safety requirements, and to contain leaks for cleanup.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Design includes leak containment features and meets plant safety requirements."
+          },
+          "applicability": {
+            "when": [
+              "lubrication_type=oil"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-098",
+          "text": "The shaft sealing approach {{seal_type}} shall be specified and demonstrated to maintain leakage within the seal leakage limit {{seal_leakage_limit}} for credited conditions.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Seal performance evidence demonstrates leakage within specified limits for credited conditions."
+          },
+          "applicability": {
+            "when": [
+              "seal_type=mechanical|packed|gas"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-099",
+          "text": "For safety-related applications, seal leakage collection and detection provisions shall be designed to support timely identification of abnormal leakage and protection of nearby safety-related equipment.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Leak detection/collection provisions are specified and consistent with plant monitoring requirements."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-100",
+          "text": "If seal injection or flush is required, the seal support system requirements (pressure, flow, temperature, filtration, chemistry) and dependencies shall be specified and included in the qualification boundary.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Seal support requirements are documented and interfaces/dependencies are captured."
+          },
+          "applicability": {
+            "when": [
+              "seal_type=mechanical"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-101",
+          "text": "Seal support systems credited for safety shall be evaluated for single-failure vulnerabilities and designed with appropriate redundancy or procedural mitigations.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Single-failure evaluation is documented and mitigations are implemented."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related",
+              "seal_type=mechanical"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-102",
+          "text": "Seal materials (faces, elastomers, secondary seals) shall be compatible with temperature, radiation, and coolant chemistry, and qualified for the required environment profile where credited.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Material compatibility and qualification evidence exists for credited sealing materials."
+          },
+          "applicability": {
+            "when": [
+              "seal_type=mechanical|packed|gas"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-103",
+          "text": "For packed glands, allowable leakage, adjustment method, and packing replacement provisions shall be specified to maintain function without excessive personnel exposure or contamination.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Packing leakage and adjustment provisions are documented and verifiable."
+          },
+          "applicability": {
+            "when": [
+              "seal_type=packed"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-104",
+          "text": "For canned-motor pumps, the can integrity, motor cooling path, insulation system, and leak-tight boundary shall be designed and qualified for the design pressure/temperature and environment profile.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Qualification evidence demonstrates can integrity and motor performance for credited conditions."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_QME_1",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-105",
+          "text": "For canned-motor pumps, provisions shall be included to detect loss of stator coolant flow, insulation degradation, or can breach as required by the design basis.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Detection/protection features are implemented and verified against defined acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-106",
+          "text": "Shaft sleeves, wear rings, and close-clearance components shall be specified and controlled to manage wear and maintain performance over service life.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Wear components and clearances are specified; acceptance criteria and replacement guidance are documented."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-107",
+          "text": "Wear-ring and internal clearance growth effects on performance (head/flow, recirculation, NPSHr) shall be evaluated and included in design margins and surveillance criteria.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation documents performance sensitivity to wear and defines surveillance/acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-108",
+          "text": "Bearing and seal replacement parts shall be specified with traceable part numbers and controlled tolerances to preserve qualified configuration and performance.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled parts list exists; replacements preserve qualified configuration."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-109",
+          "text": "Shaft sealing and bearing systems shall include provisions to prevent introduction of foreign material into the pumped fluid path during maintenance (caps, covers, cleanliness controls).",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Maintenance provisions and procedures support cleanliness/FME controls."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-110",
+          "text": "For water-lubricated bearings (vertical pumps/submersibles), water quality requirements (cleanliness, solids limits, chemistry) shall be specified and verified to prevent excessive wear.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Water quality requirements are documented and compatible with bearing wear assumptions."
+          },
+          "applicability": {
+            "when": [
+              "lubrication_type=water_lubricated"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "6. Driver, coupling, and electrical power",
+      "requirements": [
+        {
+          "id": "PLP-111",
+          "text": "The driver ({{driver_type}}) shall be sized with adequate margin to meet required pump duty across the operating envelope, including maximum absorbed power at runout and degraded voltage conditions where applicable.",
+          "type": "performance",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Driver sizing basis demonstrates adequate margin for maximum absorbed power and starting requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-112",
+          "text": "For electric motor drives, motor voltage {{motor_voltage}}, starting method, and starting current/inrush limits shall be compatible with the plant electrical distribution system and load sequencing requirements.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Electrical interface evaluation demonstrates compatibility with bus voltage drop, sequencing, and protective settings."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-113",
+          "text": "For safety-related pumps, the power supply source, separation, and load shedding/sequencing requirements shall be defined and verified to support availability during design basis events.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Power source and sequencing requirements are documented and validated against design basis."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-114",
+          "text": "Motor insulation class, temperature rise, and cooling method shall be specified and compatible with the environment profile {{environment_profile}} and duty cycle.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Motor specification demonstrates suitability for temperature rise limits and environment profile."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor"
+            ]
+          },
+          "provenance_refs": [
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-115",
+          "text": "Motor protective devices (overload, overtemperature, undervoltage, phase imbalance, ground fault) shall be specified, set, and verified consistent with protecting the motor while maintaining credited safety function.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Protective settings are documented and verified; credited function is preserved per design basis."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-116",
+          "text": "If a variable frequency drive (VFD) is used, the VFD shall be specified for required speed range, torque capability, harmonic/EMI limits, and fail-safe behavior consistent with credited function.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "VFD specification and testing demonstrate required performance and acceptable fail-safe behavior."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-117",
+          "text": "The coupling type {{coupling_type}} and coupling capacity shall exceed maximum transmitted torque (including transient torque) with appropriate margins; coupling guard requirements shall be defined.",
+          "type": "structural",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Coupling selection demonstrates torque margin and guarding is specified and verified."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-118",
+          "text": "Coupling alignment tolerances and adjustment provisions shall be specified and compatible with expected thermal growth and piping loads.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Alignment provisions and tolerances are documented and achievable in installation."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-119",
+          "text": "For steam-turbine driven pumps, overspeed protection, trip settings, and steam supply quality requirements shall be specified and verified.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Overspeed protection and steam requirements are verified and meet acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=steam_turbine"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_QME_1"
+          ]
+        },
+        {
+          "id": "PLP-120",
+          "text": "For diesel-driven pumps, start reliability requirements, fuel supply assumptions, and periodic testing provisions shall be specified and verified.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Evidence demonstrates start reliability and testing provisions meet design basis."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=diesel"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_QME_1"
+          ]
+        },
+        {
+          "id": "PLP-121",
+          "text": "Driver cooling, ventilation, and auxiliary power requirements shall be identified and included in interface and qualification boundaries for credited operation.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Auxiliary requirements are documented and interfaces are captured."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-122",
+          "text": "Motor/driver seismic and environmental qualification requirements shall be consistent with the pump\u2019s classification and credited function, including qualification of mounting, terminations, and accessories.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Qualification evidence covers driver and accessories within defined boundary conditions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3",
+            "IEEE_323",
+            "IEEE_344"
+          ]
+        },
+        {
+          "id": "PLP-123",
+          "text": "Driver rotation direction and phase sequence requirements shall be specified and verified to prevent reverse operation and damage.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Rotation direction is clearly labeled and verified during installation/testing."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor|steam_turbine|diesel"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-124",
+          "text": "If the pump is required to restart following a trip or loss of power, restart constraints (coastdown, backspin, thermal limits) shall be defined and implemented via controls/procedures.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Restart constraints are documented and implemented in controls/procedures."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-125",
+          "text": "Where driver torque or motor current is used as an input to protection or diagnostics, signal accuracy, sampling rate, and calibration requirements shall be specified.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Signal performance requirements are documented and verified."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "7. Controls, instrumentation, and protection",
+      "requirements": [
+        {
+          "id": "PLP-126",
+          "text": "Control modes for the pump (automatic, remote manual, local manual) shall be defined, including required permissives, interlocks, and operator indications.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Control modes, permissives, and indications are documented and implemented in design outputs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-127",
+          "text": "For safety-related pumps, control logic and actuation paths shall be designed to meet single-failure criteria and independence/separation requirements as applicable.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Design documentation demonstrates single-failure and separation requirements are met."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-128",
+          "text": "Pump start signals, delays, and load sequencing shall be defined to meet design basis timing (start within {{start_time_limit}} seconds where credited).",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Timing requirements are documented and verified by test or analysis."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-129",
+          "text": "Instrumentation required to monitor pump performance (flow, differential pressure, suction pressure, discharge pressure, speed) shall be specified with accuracy, range, and environmental qualification needs.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis"
+            ],
+            "acceptance": "Instrument specifications meet range/accuracy and qualification requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-130",
+          "text": "Vibration monitoring and/or periodic measurement provisions shall be specified consistent with classification and IST requirements.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Vibration monitoring provisions and acceptance criteria are documented and implemented."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLP-131",
+          "text": "Bearing temperature and lubrication status indication (where applicable) shall be provided with defined alarm/trip setpoints consistent with protecting equipment while preserving credited function.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Alarm/trip setpoints are documented and verified; credited function is preserved per design basis."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-132",
+          "text": "Seal leakage detection (flow, level, pressure, or radiation/chemistry indicators as applicable) shall be specified where leakage can challenge safety, reliability, or contamination controls.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Leak detection requirements are defined and implemented; detection meets acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "seal_type=mechanical|packed|gas"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-133",
+          "text": "Protective trips and alarms (e.g., low suction pressure, high vibration, high bearing temperature, motor overload) shall be defined with clear annunciation, reset logic, and testability.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Trip/alarm logic is documented and verified; testability provisions exist."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-134",
+          "text": "Loss of instrument signal or power shall result in a defined fail-safe condition consistent with the credited function (fail-as-is vs trip) and shall be justified.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Fail-safe behavior is documented, justified, and implemented."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-135",
+          "text": "Manual local controls (if provided) shall include clear labeling, direction-of-rotation indication, and status feedback to the control room as required.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Local controls are labeled and status feedback is implemented per requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-136",
+          "text": "Instrumentation and control devices within the pump qualification boundary shall be environmentally and seismically qualified as required by the pump\u2019s classification and location.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Qualification evidence covers I&C devices within the defined boundary."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323",
+            "IEEE_344"
+          ]
+        },
+        {
+          "id": "PLP-137",
+          "text": "Setpoint calculations shall be documented and traceable, including uncertainty, drift, calibration intervals, and allowable values.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Setpoint basis demonstrates uncertainty treatment and traceability."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-138",
+          "text": "Control and protection functions shall include provisions for periodic testing without defeating required safety functions, consistent with the IST/surveillance program.",
+          "type": "controls",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Test provisions are documented and support IST/surveillance needs."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLP-139",
+          "text": "If pump operation is credited under degraded grid voltage or station blackout scenarios, control and protection logic shall be evaluated to ensure it does not preclude credited operation.",
+          "type": "analysis",
+          "verification": {
+            "method": [
+              "analysis"
+            ],
+            "acceptance": "Evaluation documents control/protection behavior under degraded power and demonstrates credited operation is maintained."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-140",
+          "text": "Interfaces for remote indications/controls shall specify signal types, isolation, grounding, and EMI/EMC requirements compatible with plant standards.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Interface specifications are documented and consistent with plant standards."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "8. Seismic and environmental qualification",
+      "requirements": [
+        {
+          "id": "PLP-141",
+          "text": "If the pump is Seismic Category I (or equivalent), seismic qualification shall be performed using an acceptable method (analysis, test, experience data) with defined boundary conditions and acceptance criteria.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Qualification package demonstrates seismic adequacy for defined boundary conditions."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3",
+            "IEEE_344"
+          ]
+        },
+        {
+          "id": "PLP-142",
+          "text": "Seismic qualification shall address the pump, driver, base, anchors, instrumentation, and required auxiliaries (seal injection, cooling, lube oil) within the defined qualification boundary.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Qualification boundary is documented and includes all credited subcomponents and interfaces."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-143",
+          "text": "Seismic interaction and spatial effects (e.g., impact from adjacent equipment, cable tray interaction, flooding) shall be evaluated and mitigated for credited equipment.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Interaction evaluation is documented and mitigations are implemented where needed."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-144",
+          "text": "For equipment important to safety located in harsh environments, environmental qualification shall be established consistent with {{environment_profile}} including temperature, humidity, radiation, pressure, and chemical spray/submergence as applicable.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "EQ basis defines environment profile and demonstrates qualified capability for required life/mission."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-145",
+          "text": "Qualified life and aging assumptions for EQ-limited components (motor insulation, cables, sensors, elastomers) shall be defined, tracked, and included in maintenance/replacement requirements.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Qualified life values and aging management actions are documented and controlled."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-146",
+          "text": "Environmental qualification shall address interfaces such as electrical terminations, seals/gaskets, and instrument penetrations within the qualification boundary.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "EQ evidence includes interfaces and terminations as required by qualification boundary."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-147",
+          "text": "Qualification shall consider combined effects where applicable (e.g., seismic during or after harsh environment exposure) consistent with the design basis scenario sequence.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Combined-effects basis is documented and demonstrates capability for required sequence."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3",
+            "IEEE_323",
+            "IEEE_344"
+          ]
+        },
+        {
+          "id": "PLP-148",
+          "text": "If the pump or driver is located in a potentially flooded/submerged area, qualification shall address submergence pressure, leakage paths, and post-submergence operability as applicable.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Flood/submergence qualification evidence demonstrates required operability for defined conditions."
+          },
+          "applicability": {
+            "when": [
+              "environment_profile=harsh|DBA_profile_defined"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-149",
+          "text": "For containment sump or post-LOCA service pumps, qualification shall include chemical spray, debris, and temperature profiles consistent with the design basis.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Qualification basis includes LOCA chemical/thermal/debris profiles and demonstrates capability."
+          },
+          "applicability": {
+            "when": [
+              "function=residual_heat_removal|service_water"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA",
+            "CFR_10_50_49"
+          ]
+        },
+        {
+          "id": "PLP-150",
+          "text": "For safety-related active pumps, qualification shall follow a recognized active equipment qualification approach (e.g., ASME QME-1) or documented equivalent, including design, testing, and documentation requirements.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis",
+              "test"
+            ],
+            "acceptance": "Qualification package meets the chosen qualification approach and includes required documentation."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_QME_1"
+          ]
+        },
+        {
+          "id": "PLP-151",
+          "text": "Seismic and environmental qualification documentation shall include as-built configuration details (impeller trim, clearances, driver model, mounting details) sufficient to preserve the qualified configuration.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Qualification documentation includes configuration details and controlled drawing references."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-152",
+          "text": "Any changes to qualified components, materials, mounting, or operating envelope shall be evaluated for impact on seismic/EQ qualification and controlled through configuration management.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis"
+            ],
+            "acceptance": "Change evaluations document qualification impact and required requalification actions."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-153",
+          "text": "Qualification testing (if used) shall define test inputs, instrumentation, acceptance criteria, and post-test inspection requirements, and shall be performed under QA controls.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "test",
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Test records demonstrate execution per approved plan under QA controls and acceptance criteria met."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "IEEE_344",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-154",
+          "text": "If experience data is used for qualification, similarity, applicability limits, and data quality shall be documented and justified.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Experience-based qualification includes documented similarity justification and applicability bounds."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-155",
+          "text": "Mounting and anchorage details (bolt size/grade, embedment, grout, welds) used in qualification shall match the as-installed configuration or be shown equivalent.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection",
+              "analysis"
+            ],
+            "acceptance": "As-installed anchorage matches qualification basis or equivalency evaluation is documented."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-156",
+          "text": "Cable and conduit routing within the qualification boundary shall meet separation and seismic interaction requirements and be consistent with qualification assumptions.",
+          "type": "qualification",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Routing and supports meet qualification boundary assumptions and plant separation requirements."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-157",
+          "text": "For harsh-environment pumps, elastomeric components (O-rings, gaskets) shall be selected and qualified for the environment profile and required mission time.",
+          "type": "materials",
+          "verification": {
+            "method": [
+              "analysis",
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Material selection and qualification evidence exists for elastomeric components."
+          },
+          "applicability": {
+            "when": [
+              "environment_profile=harsh|DBA_profile_defined"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-158",
+          "text": "For high-radiation areas, materials and electronics susceptible to radiation damage shall be identified and controlled, with qualified life or replacement strategy specified.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Radiation-sensitive items are identified and a qualified life/replacement strategy is documented."
+          },
+          "applicability": {
+            "when": [
+              "environment_profile=harsh|DBA_profile_defined"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-159",
+          "text": "Seismic restraint and snubber requirements (if any) for attached piping that are necessary to meet pump qualification assumptions shall be specified and verified in installation.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Required restraints/snubber provisions are specified and verified as-installed."
+          },
+          "applicability": {
+            "when": [
+              "seismic_category=Seismic_Category_I"
+            ]
+          },
+          "provenance_refs": [
+            "NRC_RG_1_100_Rev3"
+          ]
+        },
+        {
+          "id": "PLP-160",
+          "text": "Environmental qualification shall include requirements for periodic inspection, maintenance, or replacement needed to preserve qualified capability over life.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "EQ maintenance/replacement requirements are documented and incorporated into plant programs."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "9. Examination, testing, and surveillance (factory and inservice)",
+      "requirements": [
+        {
+          "id": "PLP-161",
+          "text": "A factory acceptance test (FAT) plan shall be defined for the pump, specifying test configuration, instrumentation, data to be recorded, and acceptance criteria for performance and mechanical behavior.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Approved FAT plan exists and includes measurable acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards",
+            "ASME_QME_1"
+          ]
+        },
+        {
+          "id": "PLP-162",
+          "text": "Factory performance testing shall verify head, flow, power, and efficiency relative to specified acceptance tolerances at the required test points.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Recorded performance test results meet specified acceptance tolerances after corrections."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-163",
+          "text": "Where credited by the design basis, NPSHr shall be determined or verified by test at defined conditions and corrected per the applicable test standard.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "NPSHr test results meet acceptance criteria and are documented with correction method."
+          },
+          "applicability": {
+            "when": [
+              "min_npsh_margin>0"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards"
+          ]
+        },
+        {
+          "id": "PLP-164",
+          "text": "Factory mechanical run testing shall be performed to demonstrate stable operation (vibration, bearing temperatures, seal performance) at rated speed and specified operating points.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Run test data shows stability and compliance with vibration/temperature/leakage limits."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "HI_Standards",
+            "API_610"
+          ]
+        },
+        {
+          "id": "PLP-165",
+          "text": "Casing pressure testing shall be performed per code-of-record requirements, including test pressure, hold time, and acceptance criteria for leakage.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test"
+            ],
+            "acceptance": "Pressure test records demonstrate successful test with acceptance criteria met."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_55a"
+          ]
+        },
+        {
+          "id": "PLP-166",
+          "text": "Post-test inspections shall verify no abnormal wear, rubs, or damage to rotating and stationary parts, and that as-tested clearances meet specification.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Inspection records confirm no unacceptable wear/damage and clearances meet acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-167",
+          "text": "For safety-related pumps, a pre-service baseline shall be established for inservice testing (IST), including reference values for differential pressure/flow (or other OM Code parameters) and vibration.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Baseline values are documented and suitable for IST trending and acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLP-168",
+          "text": "IST test provisions shall be incorporated in the system design (test lines, bypasses, gauges/transmitters, flow measurement points) to enable required periodic testing without compromising plant safety.",
+          "type": "interface",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Design includes required IST provisions and they are accessible for testing."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code"
+          ]
+        },
+        {
+          "id": "PLP-169",
+          "text": "Instrumentation used for acceptance testing and IST shall be calibrated and traceable to recognized standards with documented uncertainty.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Calibration certificates and uncertainty documentation exist for test instrumentation."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-170",
+          "text": "Vibration measurement methods, locations, and acceptance criteria for testing and IST shall be specified consistently to enable trending over time.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Vibration measurement plan is defined and supports repeatability and trending."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code"
+          ]
+        },
+        {
+          "id": "PLP-171",
+          "text": "Where applicable, motor/driver tests (insulation resistance, hipot, winding resistance, no-load current, protective relay functional checks) shall be performed and documented.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Driver test records demonstrate acceptance criteria met."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor"
+            ]
+          },
+          "provenance_refs": [
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-172",
+          "text": "For VFD-driven pumps, functional testing shall verify speed control range, stability, protective functions, and restart behavior, including any required bypass modes.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "VFD functional test results demonstrate required behavior and protective functions."
+          },
+          "applicability": {
+            "when": [
+              "driver_type=electric_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-173",
+          "text": "If coastdown performance is credited, coastdown testing or validated analysis shall be performed and documented to demonstrate the credited coastdown time {{coastdown_time_min}}.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Coastdown evidence demonstrates compliance with credited coastdown requirement."
+          },
+          "applicability": {
+            "when": [
+              "coastdown_time_min>0"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-174",
+          "text": "For pumps with mechanical seals, seal leakoff flow/pressure and seal support system performance shall be tested or otherwise verified to meet requirements.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Seal and seal support performance meets leakage and operating requirements."
+          },
+          "applicability": {
+            "when": [
+              "seal_type=mechanical"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_QME_1"
+          ]
+        },
+        {
+          "id": "PLP-175",
+          "text": "For pumps with auxiliary cooling (bearing/seal/motor), cooling flow and temperature rise shall be verified to meet design requirements.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Auxiliary cooling performance meets acceptance criteria under defined test conditions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-176",
+          "text": "For positive displacement pumps, relief valve set pressure, capacity, and reseat performance shall be tested or otherwise verified.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Relief device testing demonstrates setpoint and capacity meet acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=positive_displacement"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppA"
+          ]
+        },
+        {
+          "id": "PLP-177",
+          "text": "Factory tests and inspections shall include verification of materials and traceability (CMTRs, heat numbers, weld filler, elastomer lot) as required by QA level and code class.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Traceability documentation exists and is consistent with procurement requirements."
+          },
+          "applicability": {
+            "when": [
+              "qa_level=NQA-1",
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-178",
+          "text": "Hold points and witness points for purchaser/third-party inspection shall be defined in the inspection and test plan (ITP) where required by QA level.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "ITP includes defined hold/witness points and records of completion."
+          },
+          "applicability": {
+            "when": [
+              "qa_level=NQA-1"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-179",
+          "text": "Test data packages shall include raw data, corrected results, uncertainty estimates (where required), and clear pass/fail statements against each acceptance criterion.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Test package is complete, traceable, and supports independent verification of acceptance."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-180",
+          "text": "Post-installation testing shall verify correct rotation, alignment, lubrication, control logic, protective trips, and performance within expected bounds.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Field test records demonstrate correct installation and functional performance."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-181",
+          "text": "For safety-related pumps, post-maintenance testing requirements and acceptance criteria shall be defined to ensure restored operability following maintenance affecting performance or qualification.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "PMT requirements are documented and aligned with IST/surveillance needs."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-182",
+          "text": "IST periodic test frequency and scope shall be defined consistent with ASME OM Code (or code-of-record) requirements and plant commitments.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "IST frequency/scope requirements are documented and reflected in plant programs."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLP-183",
+          "text": "IST acceptance criteria (alert/action ranges) shall be established using baseline values and OM Code guidance, including criteria for hydraulic performance and vibration.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Acceptance criteria are documented, justified, and support trending and corrective action."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "NRC_NUREG_1482_R3"
+          ]
+        },
+        {
+          "id": "PLP-184",
+          "text": "The design shall provide means to vent and drain the pump casing and associated test lines to support filling, priming, and repeatable test conditions.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Venting/draining provisions exist and are accessible for operation/testing."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-185",
+          "text": "Where minimum flow bypass or recirculation is required, test and surveillance provisions shall verify correct function of the minimum-flow protection path.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "test",
+              "inspection"
+            ],
+            "acceptance": "Testing demonstrates minimum-flow protection operates as intended."
+          },
+          "applicability": {
+            "when": [
+              "minimum_flow_provision=recirculation_line|auto_min_flow_valve|orifice"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-186",
+          "text": "For pumps with standby duty, periodic run testing shall be defined to prevent degradation from inactivity (e.g., seal sticking, bearing brinelling) consistent with manufacturer guidance.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Standby test program requirements are documented and incorporated into maintenance/IST."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-187",
+          "text": "Corrective actions for failed tests (FAT, installation, IST) shall be documented, including extent-of-condition evaluation, retest requirements, and disposition under QA controls.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Nonconformance/corrective action records demonstrate proper disposition and closure."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-188",
+          "text": "Test readiness and acceptance shall include verification that test configuration matches as-installed or credited configuration (impeller trim, speed, suction conditions) to ensure representative results.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Test configuration is documented and matches credited configuration or is justified as equivalent."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-189",
+          "text": "For pumps with harsh-environment qualification, any periodic surveillance needed to preserve EQ (e.g., insulation resistance, seal inspections) shall be specified and integrated with IST/maintenance.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Surveillance requirements are documented and integrated into plant programs."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_49",
+            "IEEE_323"
+          ]
+        },
+        {
+          "id": "PLP-190",
+          "text": "Where flow measurement is impractical for IST, alternate OM Code parameters (e.g., differential pressure and vibration) and their correlation to performance shall be justified and documented.",
+          "type": "testing",
+          "verification": {
+            "method": [
+              "analysis",
+              "inspection"
+            ],
+            "acceptance": "Justification demonstrates selected parameters provide adequate assurance of pump operability."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "ASME_OM_Code",
+            "NRC_NUREG_1482_R3"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "10. Quality assurance, procurement, records, and configuration control",
+      "requirements": [
+        {
+          "id": "PLP-191",
+          "text": "Procurement documents shall specify applicable technical requirements, code class, QA level {{qa_level}}, required inspections/tests, documentation, and acceptance criteria for the pump and driver.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Procurement package includes required technical/QA requirements and acceptance criteria."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-192",
+          "text": "Suppliers providing safety-related pump components or services shall be evaluated and qualified in accordance with the QA program.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "audit"
+            ],
+            "acceptance": "Supplier qualification records and audits demonstrate compliance with QA program requirements."
+          },
+          "applicability": {
+            "when": [
+              "qa_level=NQA-1"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB",
+            "NRC_RG_1_28_Rev6"
+          ]
+        },
+        {
+          "id": "PLP-193",
+          "text": "Material traceability for pressure boundary parts shall be maintained from raw material through fabrication to the final installed component, including heat/lot identification as required.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Traceability records link installed items to material certifications and manufacturing history."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-194",
+          "text": "Records of welding/brazing (procedures, qualifications, NDE results, heat treatment) shall be controlled and retained per QA requirements.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Weld records are complete, traceable, and retained per record retention requirements."
+          },
+          "applicability": {
+            "when": [
+              "code_class=ASME_III_Class_1|2|3"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-195",
+          "text": "Calibration and maintenance records for test equipment used in acceptance testing shall be controlled and traceable.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Calibration records are available, current, and traceable to standards."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-196",
+          "text": "A controlled bill of materials (BOM) and parts list shall be maintained for the pump assembly, identifying safety-significant items, replacement parts, and critical characteristics.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Controlled BOM/parts list exists and identifies safety-significant items and critical characteristics."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-197",
+          "text": "Configuration items affecting performance or qualification (impeller diameter/trim, wear-ring clearances, seal model, driver model, VFD parameters) shall be uniquely identified and controlled.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Configuration item list exists and is under configuration control with change evaluation process."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-198",
+          "text": "Software/firmware used in VFDs, protective relays, or condition monitoring equipment within the qualification boundary shall be controlled, versioned, and subject to change impact evaluation.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Software/firmware versions and change controls are documented and auditable."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-199",
+          "text": "Nonconformances shall be documented and dispositioned per QA procedures, including evaluation of reportability, operability impact, and required corrective actions.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Nonconformance records demonstrate proper disposition and corrective action closure."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-200",
+          "text": "Counterfeit, fraudulent, and suspect items (CFSI) controls shall be applied to safety-related pump procurement and spares.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "CFSI controls are implemented and records demonstrate compliance for applicable items."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-201",
+          "text": "A document package shall be delivered with the pump including drawings, manuals, performance curves, test reports, material certifications, and qualification documentation as required.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Delivered document package is complete, controlled, and meets procurement requirements."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-202",
+          "text": "Records retention periods and storage requirements for safety-related pump documentation shall comply with applicable regulatory and QA program requirements.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Record retention requirements are defined and implemented per QA program."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-203",
+          "text": "As-built documentation (final drawings, settings, configuration identifiers) shall reflect the installed pump configuration and be reconciled with design documents.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "As-built package matches installed configuration and discrepancies are resolved."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-204",
+          "text": "Spare parts strategy and stocking levels for critical pump components (seals, bearings, wear rings, sensors) shall be defined consistent with reliability and mission requirements.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Spare parts list and strategy are documented and aligned with reliability objectives."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-205",
+          "text": "Maintenance procedures shall identify critical characteristics and post-maintenance test requirements to preserve qualified configuration and performance.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Procedures include critical characteristics and PMT steps aligned with qualification/IST."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-206",
+          "text": "Vendor manuals and recommended maintenance intervals shall be reviewed and reconciled with plant programs (IST, PM, EQ) to ensure consistency and completeness.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Reconciliation records show alignment or documented deviations with justification."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-207",
+          "text": "For commercial-grade dedication (if applicable), critical characteristics shall include pump hydraulic performance, pressure boundary integrity, material properties, and functional features required by the design basis.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "test",
+              "analysis"
+            ],
+            "acceptance": "Dedication records demonstrate verification of critical characteristics with acceptance criteria met."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-208",
+          "text": "Any design deviations, waivers, or use-as-is dispositions affecting safety-related pump requirements shall be formally justified, approved, and incorporated into configuration records.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection",
+              "audit"
+            ],
+            "acceptance": "Deviation/waiver records demonstrate proper approval and incorporation into configuration control."
+          },
+          "applicability": {
+            "when": [
+              "safety_classification=safety_related"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-209",
+          "text": "Interfaces and dependencies (seal injection, cooling, power, controls) shall be captured in system configuration management so that changes to supporting systems trigger review of pump operability impacts.",
+          "type": "QA",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Dependency tracking exists and change process includes operability impact review."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-210",
+          "text": "Training needs for operators and maintenance personnel specific to the pump (operating limits, alarms, abnormal indications, maintenance tasks) shall be identified and incorporated into plant training materials.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Training materials cover pump-specific requirements and abnormal response actions."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "11. Maintainability, accessibility, operation, and monitoring",
+      "requirements": [
+        {
+          "id": "PLP-211",
+          "text": "The pump installation shall provide adequate access for inspection, lubrication, seal replacement, bearing replacement, and driver maintenance without requiring removal of unrelated safety-significant equipment.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Layout/accessibility review confirms required maintenance tasks can be performed as specified."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-212",
+          "text": "Lifting paths, rigging clearances, and laydown areas required for removal/installation of major components shall be identified and verified in design outputs.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Design drawings/procedures identify lifting paths and clearances; verification demonstrates feasibility."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-213",
+          "text": "Provisions for lockout/tagout (LOTO), local isolation, and safe depressurization/draining shall be incorporated to support maintenance and testing activities.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "LOTO/isolation provisions are present and accessible; drain/vent points support safe maintenance."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-214",
+          "text": "Operating procedures shall include clear limits for minimum flow, maximum flow/runout, maximum shutoff duration, and required auxiliary systems (seal injection, cooling, lube) states.",
+          "type": "programmatic",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Procedures include defined operating limits consistent with design basis and vendor guidance."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-215",
+          "text": "The pump and driver shall include clear labeling for rotation direction, flow direction, valve lineup points (if applicable), and local indications necessary for field operations.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Labeling is present, durable, and consistent with drawings/procedures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-216",
+          "text": "Drainage, venting, and priming provisions shall support reliable startup and prevention of air binding, including during periodic surveillance tests.",
+          "type": "functional",
+          "verification": {
+            "method": [
+              "inspection",
+              "test"
+            ],
+            "acceptance": "Venting/priming provisions are functional and support repeatable starts without air binding."
+          },
+          "applicability": {
+            "when": [
+              "pump_type=centrifugal|vertical_turbine|submersible|canned_motor"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-217",
+          "text": "Where applicable, the design shall support condition-based maintenance by providing access points for vibration measurement, oil sampling, and thermography.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Condition monitoring access points exist and are safely accessible."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-218",
+          "text": "Spare-part interchangeability and standardized tooling requirements shall be defined to minimize outage time and reduce maintenance-induced errors.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Maintenance plan identifies required tooling and interchangeability considerations."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-219",
+          "text": "Foreign material exclusion (FME) and cleanliness requirements for maintenance and reassembly shall be specified, including allowable particulate levels and flush/cleaning methods.",
+          "type": "maintainability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "FME/cleanliness requirements are documented and reflected in maintenance procedures."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        },
+        {
+          "id": "PLP-220",
+          "text": "Aging management considerations (wear components, elastomer aging, insulation aging) shall be captured with inspection intervals, acceptance criteria, and replacement triggers consistent with service life {{service_life_years}}.",
+          "type": "reliability",
+          "verification": {
+            "method": [
+              "inspection"
+            ],
+            "acceptance": "Aging management actions and triggers are documented and integrated into plant programs."
+          },
+          "applicability": {
+            "when": [
+              "always"
+            ]
+          },
+          "provenance_refs": [
+            "CFR_10_50_AppB"
+          ]
+        }
+      ]
+    }
+  ]
+}
